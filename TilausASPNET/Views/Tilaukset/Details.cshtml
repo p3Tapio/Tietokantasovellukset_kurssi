@@ -1,0 +1,58 @@
+﻿@model TilausASPNET.Models.Tilaukset
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tilaukset</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>TilausID</dt>
+        <dd>
+            @Html.DisplayFor(model => model.TilausID)
+        </dd>
+        <dt>AsiakasID</dt>
+        <dd>@Html.DisplayFor(model => model.AsiakasID)</dd>
+        <dt>
+            Asiakasyritys
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Asiakkaat.Nimi)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Toimitusosoite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Toimitusosoite)
+            <br />
+            @Html.DisplayFor(model => model.Postinumero)
+            @Html.DisplayFor(model => model.Postitoimipaikat.Postitoimipaikka)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tilauspvm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tilauspvm)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Toimituspvm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Toimituspvm)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TilausID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

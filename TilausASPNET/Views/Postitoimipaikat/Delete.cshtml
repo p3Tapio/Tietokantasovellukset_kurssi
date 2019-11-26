@@ -1,0 +1,38 @@
+﻿@model TilausASPNET.Models.Postitoimipaikat
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2></h2>
+<br />
+<h3>Haluatko poistaa toimipaikan tietokannasta?</h3>
+<div>
+  
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>Postinumero</dt>
+        <dd>@Html.DisplayFor(model => model.Postinumero)</dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Postitoimipaikka)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Postitoimipaikka)
+        </dd>
+
+       
+
+    </dl>
+    <hr/>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-outline-secondary" />
+        <button class="btn btn-outline-secondary"> @Html.ActionLink("Back to List", "Index")</button>
+    </div>
+    }
+</div>

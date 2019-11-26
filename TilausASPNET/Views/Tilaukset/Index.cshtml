@@ -1,0 +1,66 @@
+﻿
+@model IEnumerable<TilausASPNET.Models.Tilaukset>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Tilaukset</h2>
+
+<p>
+    <button class="btn btn-outline-secondary">@Html.ActionLink("Luo uusi", "Create")</button>
+</p>
+<p>
+    Tílauksia tietokannassa @Model.Count()
+</p>
+<table class="table">
+    <thead>
+        <tr class="bg-dark">
+            <th> TilausID</th>
+            <th> Asiakasyritys </th>
+            <th> @Html.DisplayNameFor(model => model.Toimitusosoite)</th>
+            <th> @Html.DisplayNameFor(model => model.Postitoimipaikat.Postitoimipaikka) </th>
+            <th> @Html.DisplayNameFor(model => model.Tilauspvm)</th>
+            <th> @Html.DisplayNameFor(model => model.Toimituspvm)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.TilausID)</td>
+                <td> @Html.DisplayFor(modelItem => item.Asiakkaat.Nimi)</td>
+                <td> @Html.DisplayFor(modelItem => item.Toimitusosoite)</td>
+                <td>@Html.DisplayFor(modelItem => item.Postinumero)&nbsp; @Html.DisplayFor(modelItem => item.Postitoimipaikat.Postitoimipaikka) </td>
+                <td> @item.Tilauspvm.ToString().TrimEnd('0', '.', ' ')</td>
+                <td> @item.Toimituspvm.ToString().TrimEnd('0', '.', ' ')</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.TilausID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.TilausID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.TilausID })
+                </td>
+            </tr>
+
+        }
+    </tbody>
+
+
+
+
+    </table>
+
+
+<script>
+    const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+    const comparer = (idx, asc) => (a, b) => ((v1, v2) =>
+        v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
+    )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
+    document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
+        const table = th.closest('table');
+        const tbody = table.querySelector('tbody');
+        Array.from(tbody.querySelectorAll('tr'))
+            .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+            .forEach(tr => tbody.appendChild(tr));
+    })));
+</script>
