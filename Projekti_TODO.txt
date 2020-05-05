@@ -1,0 +1,2 @@
+-- Henkilöt postitoimipaikka ei toimi .. vertaa Asiakaisiin jossa toimii 
+-- Henkilöiden luontiin dropdown kuten Asiakkaissa

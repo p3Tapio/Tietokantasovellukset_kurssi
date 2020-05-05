@@ -3,37 +3,32 @@
 @{
     ViewBag.Title = "Delete";
 }
-
 <h2></h2>
-
 <h3>Haluatko poistaa asiakastiedon?</h3>
 <hr>
 <div>
 
+    <div class="container">
+        <dl class="dl-horizontal">
+            <dt>Asiakastunnus</dt>
+            <dd class="ddLine">@Html.DisplayFor(model => model.AsiakasID)</dd>
+            <dt style="line-height: 200%">Yritys</dt>
+            <dd class="ddLine"> @Html.DisplayFor(model => model.Nimi) </dd>
+            <dd class="ddLine"> @Html.DisplayFor(model => model.Osoite)</dd>
+            <dd class="ddLine">
+                @Html.DisplayFor(model => model.Postinumero)
+                @Html.DisplayFor(model => model.Postitoimipaikat.Postitoimipaikka)
+            </dd>
+        </dl>
+        <hr />
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-    <dl class="dl-horizontal">
-        <dt>Asiakastunnus</dt>
-        <dd class="ddLine">@Html.DisplayFor(model => model.AsiakasID)</dd>
-
-        <dt style="line-height: 200%">Yritys</dt>
-       
-        <dd class="ddLine"> @Html.DisplayFor(model => model.Nimi) </dd>
-        <dd class="ddLine"> @Html.DisplayFor(model => model.Osoite)</dd>
-        <dd class="ddLine">
-            @Html.DisplayFor(model => model.Postinumero)
-            @Html.DisplayFor(model => model.Postitoimipaikat.Postitoimipaikka)
-        </dd>
-
-
-    </dl>
-    <hr />
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-outline-secondary" />
-            <button class="btn btn-outline-secondary"> @Html.ActionLink("Back to List", "Index")</button>
-        </div>
-    }
-
+            <div class="form-actions no-color">
+                <a class="btn btn-outline-secondary" href="~/Asiakkaat" style="color:black"><img src="~/Icons/arrow-bar-left.svg" height="15" width="15" />&nbsp;Palaa takaisin</a>
+                <button type="submit" class="btn btn-outline-secondary" style="color:black"><img src="~/Icons/x-square.svg" height="15" width="15" />&nbsp;&nbsp;Poista</button>
+            </div>
+        }
+    </div>
 </div>

@@ -6,34 +6,36 @@
 
 <h2></h2>
 <br />
-<h3>Haluatko poistaa toimipaikan tietokannasta?</h3>
+<h3>Haluatko poistaa osoitetiedot tietokannasta?</h3>
 <div>
 
     <hr />
-    <dl class="dl-horizontal">
+    <div class="container">
+        <dl class="dl-horizontal">
 
-        <dt>Postinumero</dt>
-        <dd>@Html.DisplayFor(model => model.Postinumero)</dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Postitoimipaikka)
-        </dt>
+            <dt>Postinumero</dt>
+            <dd>@Html.DisplayFor(model => model.Postinumero)</dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Postitoimipaikka)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Postitoimipaikka)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Postitoimipaikka)
+            </dd>
 
 
 
-    </dl>
-    <hr />
+        </dl>
+        <hr />
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <a class="btn btn-outline-secondary" href="~/Postitoimipaikat" style="color:black"><img src="~/Icons/arrow-bar-left.svg" height="15" width="15" />&nbsp;Palaa takaisin</a>
-            <button type="submit" class="btn btn-outline-secondary" style="color:black"><img src="~/Icons/x-square.svg" height="15" width="15" />&nbsp;&nbsp;Poista</button>
-        </div>
-    }
+            <div class="form-actions no-color">
+                <a class="btn btn-outline-secondary" href="~/Postitoimipaikat" style="color:black"><img src="~/Icons/arrow-bar-left.svg" height="15" width="15" />&nbsp;Palaa takaisin</a>
+                <button type="submit" class="btn btn-outline-secondary" style="color:black"><img src="~/Icons/x-square.svg" height="15" width="15" />&nbsp;&nbsp;Poista</button>
+            </div>
+        }
+    </div>
 </div>

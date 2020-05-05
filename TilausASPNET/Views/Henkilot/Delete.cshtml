@@ -3,63 +3,32 @@
 @{
     ViewBag.Title = "Delete";
 }
-
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
+<h2></h2>
+<h3>Haluatko poistaa henkilötiedot?</h3>
 <div>
-    <h4>Henkilot</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Etunimi)
-        </dt>
+    <div class="container">
+        <dl class="dl-horizontal">
+            <dt> @Html.DisplayNameFor(model => model.Etunimi)</dt>
+            <dd> @Html.DisplayFor(model => model.Etunimi) </dd>
+            <dt> @Html.DisplayNameFor(model => model.Sukunimi) </dt>
+            <dd>  @Html.DisplayFor(model => model.Sukunimi) </dd>
+            <dt> @Html.DisplayNameFor(model => model.Osoite) </dt>
+            <dd> @Html.DisplayFor(model => model.Osoite)</dd>
+            <dt> @Html.DisplayNameFor(model => model.Postinumero) </dt>
+            <dd>  @Html.DisplayFor(model => model.Postinumero)</dd>
+            <dt>  @Html.DisplayNameFor(model => model.Sahkoposti) </dt>
+            <dd> @Html.DisplayFor(model => model.Sahkoposti)  </dd>
+        </dl>
+        <hr/>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-        <dd>
-            @Html.DisplayFor(model => model.Etunimi)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Sukunimi)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Sukunimi)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Osoite)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Osoite)
-        </dd>
-
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Postinumero)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Postinumero)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Sahkoposti)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Sahkoposti)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
+    <div class="form-actions no-color">
+        <a class="btn btn-outline-secondary" href="~/Henkilot" style="color:black"><img src="~/Icons/arrow-bar-left.svg" height="15" width="15" />&nbsp;Palaa takaisin</a>
+        <button type="submit" class="btn btn-outline-secondary" style="color:black"><img src="~/Icons/x-square.svg" height="15" width="15" />&nbsp;&nbsp;Poista</button>
+    </div>
+        }
+    </div>
 </div>
