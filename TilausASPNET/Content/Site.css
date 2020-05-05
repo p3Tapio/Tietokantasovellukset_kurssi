@@ -1,7 +1,4 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-}
+﻿
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -37,4 +34,7 @@ h2 {
 .table > thead > tr > th {
     cursor: pointer;
   
+}
+.omaLink {
+    color: black;
 }

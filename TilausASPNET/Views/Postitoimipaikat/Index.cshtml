@@ -4,19 +4,20 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2 class="mb-4 ml-3">Postinumerot ja -toimipaikat</h2>
 
-
-<table class="table">
-    <thead>
-        <tr class="bg-dark">
-            <th>Postinumero</th>
-            <th>Postitoimipaikka</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model) {
+<div class="container">
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Postinumero</th>
+                <th>Postitoimipaikka</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Postinumero)
@@ -25,18 +26,19 @@
                     @Html.DisplayFor(modelItem => item.Postitoimipaikka)
                 </td>
                 <td style="white-space:nowrap">
-                    <button type="button" class="btn btn-outline-secondary">@Html.ActionLink("Edit", "Edit", new { id = item.Postinumero })</button>
-                    <button type="button" class="btn btn-outline-secondary"> @Html.ActionLink("Delete", "Delete", new { id = item.Postinumero })</button>
+                    <a class="btn btn-outline-secondary" title="Edit" href="~/Postitoimipaikat/Edit/@item.Postinumero"><img src="~/Icons/pencil-square.svg" height="20" width="20" /></a>
+                    <a class="btn btn-outline-secondary ml-lg-1" title="Delete" href="~/Postitoimipaikat/Delete/@item.Postinumero"><img src="~/Icons/x-square.svg" height="20" width="20" /></a>
                 </td>
             </tr>
-        }
-    </tbody>
+            }
+        </tbody>
 
-</table>
-<p>
-    <button type="button" class="btn btn-outline-secondary"> @Html.ActionLink("Luo uusi postiosoite", "Create")</button>
-</p>
-<p>Tietokannassa @Model.Count() postiosoitetta</p>
+    </table>
+    <p>
+        <a class="btn btn-outline-secondary" href="~/Postitoimipaikat/Create" style="color:black"><img src="~/Icons/plus-square.svg" height="20" width="20" />&nbsp;&nbsp;Tallenna uusi postinumero ja -toimipaikka</a>
+    </p>
+    <p>Tietokannassa @Model.Count() postiosoitetta</p>
+</div>
 <script>
     const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
     const comparer = (idx, asc) => (a, b) => ((v1, v2) =>

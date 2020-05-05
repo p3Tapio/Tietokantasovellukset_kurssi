@@ -5,13 +5,13 @@
 }
 
 <h2></h2>
-<br/>
+<br />
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Luo uusi postitoimipaikka</h4>
         <hr />
@@ -34,9 +34,8 @@
         <hr />
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <button class="btn btn-outline-secondary"> @Html.ActionLink("Back to List", "Index")</button>
-                <input type="submit" value="Tallenna" class="btn btn-outline-secondary" />
-
+                <a class="btn btn-outline-secondary"  href="~/Postitoimipaikat" style="color:black"><img src="~/Icons/arrow-bar-left.svg" height="15" width="15" />&nbsp;Palaa tallentamatta</a>
+                <button type="submit" value="Tallenna" class="btn btn-outline-secondary" style="color:black"><img src="~/Icons/check.svg" height="15" width="15" />&nbsp;&nbsp;Tallenna</button>
             </div>
         </div>
     </div>

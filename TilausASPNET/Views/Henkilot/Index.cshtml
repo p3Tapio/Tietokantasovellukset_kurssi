@@ -4,61 +4,64 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div ="container>
+    <h2 class="mb-4">Index</h2>
 
 
-<table class="table">
-    <thead>
-        <tr class="bg-dark">
-            <th>Henkilo ID</th>
-            <th>
-                @Html.DisplayNameFor(model => model.Etunimi)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Sukunimi)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Osoite)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Sahkoposti)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model) {
+    <table class="table table-hover">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Henkilo_id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Etunimi)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Sukunimi)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Osoite)&nbsp;
-                    <br />
-                    @Html.DisplayFor(modelItem => item.Postinumero)&nbsp;
-                    <!--    @**@Html.DisplayFor(modelItem => item.Postitoimipaikat.Postitoimipaikka)-->
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Sahkoposti)
-                </td>
-                <td>
-                    <button class="btn btn-outline-secondary">  @Html.ActionLink("Edit", "Edit", new { id = item.Henkilo_id }) </button>
-                    <button class="btn btn-outline-secondary"> @Html.ActionLink("Delete", "Delete", new { id = item.Henkilo_id }) </button>
-                </td>
+                <th>Henkilo ID</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Etunimi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sukunimi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Osoite)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sahkoposti)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Henkilo_id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Etunimi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sukunimi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Osoite)&nbsp;
+                        <br />
+                        @Html.DisplayFor(modelItem => item.Postinumero)&nbsp;
+                        <!--    @**@Html.DisplayFor(modelItem => item.Postitoimipaikat.Postitoimipaikka)-->
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sahkoposti)
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-secondary">  @Html.ActionLink("Edit", "Edit", new { id = item.Henkilo_id }) </button>
+                        <button class="btn btn-outline-secondary"> @Html.ActionLink("Delete", "Delete", new { id = item.Henkilo_id }) </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
 
-</table>
-<p>
-    <button class="btn btn-outline-secondary"> @Html.ActionLink("Luo uusi henkilötieto", "Create")</button>
-</p>
+    </table>
+    <p>
+        <button class="btn btn-outline-secondary"> @Html.ActionLink("Luo uusi henkilötieto", "Create")</button>
+    </p>
+</div>
 <script>
     const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
     const comparer = (idx, asc) => (a, b) => ((v1, v2) =>

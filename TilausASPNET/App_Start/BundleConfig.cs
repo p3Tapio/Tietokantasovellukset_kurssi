@@ -20,8 +20,8 @@ namespace TilausASPNET {
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-             
-                      "~/Content/bootstrapSolar.css",
+
+                      "~/Content/bootstrapFlatly.css",
                       
                       "~/Content/site.css "
                          ));

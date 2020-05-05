@@ -8,7 +8,7 @@
 <br />
 <h3>Haluatko poistaa toimipaikan tietokannasta?</h3>
 <div>
-  
+
     <hr />
     <dl class="dl-horizontal">
 
@@ -22,17 +22,18 @@
             @Html.DisplayFor(model => model.Postitoimipaikka)
         </dd>
 
-       
+
 
     </dl>
-    <hr/>
+    <hr />
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
-    <div class="form-actions no-color">
-        <input type="submit" value="Delete" class="btn btn-outline-secondary" />
-        <button class="btn btn-outline-secondary"> @Html.ActionLink("Back to List", "Index")</button>
-    </div>
+        <div class="form-actions no-color">
+            <a class="btn btn-outline-secondary" href="~/Postitoimipaikat" style="color:black"><img src="~/Icons/arrow-bar-left.svg" height="15" width="15" />&nbsp;Palaa takaisin</a>
+            <button type="submit" class="btn btn-outline-secondary" style="color:black"><img src="~/Icons/x-square.svg" height="15" width="15" />&nbsp;&nbsp;Poista</button>
+        </div>
     }
 </div>
