@@ -63,6 +63,7 @@ namespace TilausASPNET.Controllers {
             } else {
                 ViewBag.LoggedStatus = "In";
                 if (ModelState.IsValid) {
+
                     db.Tilaukset.Add(tilaukset);
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -144,7 +145,9 @@ namespace TilausASPNET.Controllers {
                     db.Tilaukset.Remove(tilaukset);
                     db.SaveChanges();
                     return RedirectToAction("Index");
+#pragma warning disable CS0168 // Variable is declared but never used
                 } catch (Exception ForeignKeyConstraint) {
+#pragma warning restore CS0168 // Variable is declared but never used
                     return Content("<script language='javascript' type='text/javascript'>alert('Tilausrivit -taulussa olevaa tietoa ei voi poistaa');</script>");
 
                 }

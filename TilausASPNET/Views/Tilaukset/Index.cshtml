@@ -5,51 +5,57 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Tilaukset</h2>
+<h2 class="mb-4 ml-3">Tilaukset</h2>
 
-<p>
-    <button class="btn btn-outline-secondary">@Html.ActionLink("Luo uusi", "Create")</button>
-</p>
-<p>
-    Tílauksia tietokannassa @Model.Count()
-</p>
-<table class="table">
-    <thead>
-        <tr class="bg-dark">
-            <th> TilausID</th>
-            <th> Asiakasyritys </th>
-            <th> @Html.DisplayNameFor(model => model.Toimitusosoite)</th>
-            <th> @Html.DisplayNameFor(model => model.Postitoimipaikat.Postitoimipaikka) </th>
-            <th> @Html.DisplayNameFor(model => model.Tilauspvm)</th>
-            <th> @Html.DisplayNameFor(model => model.Toimituspvm)</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model) {
-
+<div class="container">
+    <table class="table table-hover">
+        <thead class="thead-dark">
             <tr>
-                <td>@Html.DisplayFor(modelItem => item.TilausID)</td>
-                <td> @Html.DisplayFor(modelItem => item.Asiakkaat.Nimi)</td>
-                <td> @Html.DisplayFor(modelItem => item.Toimitusosoite)</td>
-                <td>@Html.DisplayFor(modelItem => item.Postinumero)&nbsp; @Html.DisplayFor(modelItem => item.Postitoimipaikat.Postitoimipaikka) </td>
-                <td> @item.Tilauspvm.ToString().TrimEnd('0', '.', ' ')</td>
-                <td> @item.Toimituspvm.ToString().TrimEnd('0', '.', ' ')</td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.TilausID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.TilausID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.TilausID })
-                </td>
-            </tr>
+                <th> TilausID</th>
+                <th> Asiakasyritys </th>
+                <th> Osoite</th>
 
-        }
-    </tbody>
+                <th> @Html.DisplayNameFor(model => model.Tilauspvm)</th>
+                <th> @Html.DisplayNameFor(model => model.Toimituspvm)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.TilausID)</td>
+                    <td> @Html.DisplayFor(modelItem => item.Asiakkaat.Nimi)</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Toimitusosoite)<br />
+                        @Html.DisplayFor(modelItem => item.Postinumero)&nbsp;
+                        @Html.DisplayFor(modelItem => item.Postitoimipaikat.Postitoimipaikka)
+                    </td>
+                    <td> @item.Tilauspvm.ToString().TrimEnd('.', ':', '0')</td>
+                    <td> @item.Toimituspvm.ToString().TrimEnd('.', ':', '0')</td>
+                    <td>
+                        <div class="justify-content-end">
+                            <a class="btn btn-outline-secondary m-md-1" title="Details" href="~/tilaukset/Details//@item.TilausID"><img src="~/Icons/info-square.svg" height="22" /></a>
+                            <a class="btn btn-outline-secondary m-md-1" title="Edit" href="~/Tilaukset/Edit/@item.TilausID"><img src="~/Icons/pencil-square.svg" height="20" /></a>
+                            <a class="btn btn-outline-secondary m-md-1" title="Delete" href="~/Tilaukset/Delete/@item.TilausID"><img src="~/Icons/x-square.svg" height="20" /></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
 
 
 
 
     </table>
-
+    <p>
+        <a class="btn btn-outline-secondary" href="~/Tilaukset/Create" style="color:black"><img src="~/Icons/plus-square.svg" height="20" width="20" />&nbsp;&nbsp;Lisää tilaus</a>
+    </p>
+    <p>
+        Tílauksia tietokannassa: @Model.Count() kpl
+    </p>
+</div>
 
 <script>
     const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;

@@ -146,7 +146,9 @@ namespace TilausASPNET.Controllers {
                 db.Asiakkaat.Remove(asiakkaat);
                 db.SaveChanges();
                 return RedirectToAction("Index");
+#pragma warning disable CS0168 // Variable is declared but never used
             } catch (Exception ForeignKeyConstraint) {
+#pragma warning restore CS0168 // Variable is declared but never used
                 return Content("<script language='javascript' type='text/javascript'>alert('Käytössä olevaa tietoa ei voi poistaa');</script>");
 
             }

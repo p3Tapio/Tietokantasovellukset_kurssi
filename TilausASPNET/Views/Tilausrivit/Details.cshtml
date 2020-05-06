@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Details";
+    var id = Model.TilausriviID;
 }
 
 <h2>Details</h2>
@@ -40,6 +41,7 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.TilausriviID }) |
-    @Html.ActionLink("Back to List", "Index")
+    <a class="btn btn-outline-secondary" href="~/Tilausrivit" style="color:black"><img src="~/Icons/arrow-bar-left.svg" height="20" />&nbsp;&nbsp;Palaa takaisin</a>
+    <a class="btn btn-outline-secondary m-md-1 omaLink" title="Edit" href="~/Tilausrivit/Edit/@id"><img src="~/Icons/pencil-square.svg" height="20" />&nbsp;&nbsp;Muokkaa</a>
+
 </p>

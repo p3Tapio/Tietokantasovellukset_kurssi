@@ -46,7 +46,7 @@ namespace TilausASPNET.Controllers {
                 return RedirectToAction("login", "home");
             } else {
                 ViewBag.LoggedStatus = "In";
-                ViewBag.TilausID = new SelectList(db.Tilaukset, "TilausID", "Toimitusosoite");
+                ViewBag.TilausID = new SelectList(db.Tilaukset, "TilausID", "TilausID");
                 ViewBag.TuoteID = new SelectList(db.Tuotteet, "TuoteID", "Nimi");
                 return View();
             }

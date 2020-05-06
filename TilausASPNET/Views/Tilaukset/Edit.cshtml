@@ -4,71 +4,70 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<h2 class="mb-4 ml-3">Edit</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    <h4>Tilaukset</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.TilausID)
+    <div class="container">
+        <div class="form-horizontal">
+            <h4>Tilaukset</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.TilausID)
 
-    <div class="form-group">
-        <div class="col-md-10">
-            <label class="control-label" for="readOnlyInput">AsiakasID</label>
-            <input class="form-control" id="readOnlyInput" type="text" placeholder=@Html.TextBoxFor(m => m.AsiakasID, new { @readonly = "readonly" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-10">
-            <label class="control-label" for="readOnlyInput">TilausID</label>
-            <input class="form-control" id="readOnlyInput" type="text" placeholder=@Html.TextBoxFor(m => m.TilausID, new { @readonly = "readonly" })
-        </div>
-    </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <label class="control-label" for="readOnlyInput">AsiakasID</label>
+                    <input class="form-control" id="readOnlyInput" type="text" placeholder=@Html.TextBoxFor(m => m.AsiakasID, new { @readonly = "readonly" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <label class="control-label" for="readOnlyInput">TilausID</label>
+                    <input class="form-control" id="readOnlyInput" type="text" placeholder=@Html.TextBoxFor(m => m.TilausID, new { @readonly = "readonly" })
+                </div>
+            </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Toimitusosoite, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Toimitusosoite, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Toimitusosoite, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Toimitusosoite, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Toimitusosoite, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Toimitusosoite, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Postinumero, "Postinumero", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("Postinumero", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Postinumero, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Postinumero, "Postinumero", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("Postinumero", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Postinumero, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Tilauspvm, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Tilauspvm, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Tilauspvm, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Tilauspvm, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Tilauspvm, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Tilauspvm, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Toimituspvm, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Toimituspvm, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Toimituspvm, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Toimituspvm, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Toimituspvm, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Toimituspvm, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <a class="btn btn-outline-secondary" href="~/Tilaukset" style="color:black"><img src="~/Icons/arrow-bar-left.svg" height="15" width="15" />&nbsp;&nbsp;Palaa tallentamatta</a>
+                    <button type="submit" value="Tallenna" class="btn btn-outline-secondary" style="color:black"><img src="~/Icons/check.svg" height="15" width="15" />&nbsp;&nbsp;Tallenna</button>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+    <br />
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

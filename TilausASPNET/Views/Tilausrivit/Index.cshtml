@@ -4,65 +4,67 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Tilausrivit</h2>
-
-<p>
-    <button class="btn btn-outline-secondary">@Html.ActionLink("Luo uusi tilausrivi", "Create")</button>
-</p>
-<p>Tietokannssa @Model.Count() tilausriviä</p>
-<table class="table">
-    <thead>
-        <tr class="bg-dark">
-            <th>Tilausrivin tunnus </th>
-            <th>
-                Asiakas
-            </th>
-            <th>Tuote</th>
-            <th>
-                @Html.DisplayNameFor(model => model.Maara)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ahinta)
-            </th>
-            <th>Summa</th>
+    <h2 class="mb-4 ml-3">Tilausrivit</h2>
 
 
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model) {
-            decimal? summa = item.Maara * item.Ahinta;
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TilausriviID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Tilaukset.Asiakkaat.Nimi)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Tuotteet.Nimi)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Maara)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Ahinta)
-                </td>
-                <td>@summa</td>
+<div class="container">
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr class="bg-dark">
+                <th>Tilauksen tunnus</th>
+                <th>
+                    Asiakas
+                </th>
+                <th>Tuote</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Maara)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ahinta)
+                </th>
+                <th>Summa</th>
 
 
-
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.TilausriviID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.TilausriviID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.TilausriviID })
-                </td>
+                <th></th>
             </tr>
-        }
-    </tbody>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                decimal? summa = item.Maara * item.Ahinta;
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TilausID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tilaukset.Asiakkaat.Nimi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tuotteet.Nimi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Maara)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ahinta)
+                    </td>
+                    <td>@summa</td>
 
-</table>
+                    <td>
+                        <a class="btn btn-outline-secondary m-md-1" title="Details" href="~/Tilausrivit/Details//@item.TilausriviID"><img src="~/Icons/info-square.svg" height="22" /></a>
+                        <a class="btn btn-outline-secondary m-md-1" title="Edit" href="~/Tilausrivit/Edit/@item.TilausriviID"><img src="~/Icons/pencil-square.svg" height="20" /></a>
+                        <a class="btn btn-outline-secondary m-md-1" title="Delete" href="~/Tilausrivit/Delete/@item.TilausriviID"><img src="~/Icons/x-square.svg" height="20" /></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+    <p>
+        <a class="btn btn-outline-secondary" href="~/Tilausrivit/Create" style="color:black"><img src="~/Icons/plus-square.svg" height="20" width="20" />&nbsp;&nbsp;Lisää tilausrivi</a>
+    </p>
+    <p>Tietokannssa @Model.Count() tilausriviä</p>
+</div>
 <script>
     const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
     const comparer = (idx, asc) => (a, b) => ((v1, v2) =>
