@@ -4,14 +4,14 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2></h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Tuotteet</h4>
+        <h4 class="ml-3">Lisää uusi tuote</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -37,15 +37,14 @@
                 @Html.ValidationMessageFor(model => model.ImageLink, "", new { @class = "text-danger" })
             </div>
         </div>
+        <br />
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <a class="btn btn-outline-secondary" href="~/Tuotteet" style="color:black"><img src="~/Icons/arrow-bar-left.svg" height="15" width="15" />&nbsp;Palaa tallentamatta</a>
+                <button type="submit" value="Tallenna" class="btn btn-outline-secondary" style="color:black"><img src="~/Icons/check.svg" height="15" width="15" />&nbsp;&nbsp;Tallenna</button>
             </div>
         </div>
     </div>
+    <br />
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
