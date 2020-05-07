@@ -62,19 +62,23 @@ namespace TilausASPNET.Controllers {
             return View();
         }
         [HttpPost]
-        public ActionResult Authorize(Logins LoginModel) {
+        public ActionResult Authorize(Logins LoginModel)
+        {
 
 
             var LoggedUser = db.Logins.SingleOrDefault(x => x.UserName == LoginModel.UserName && x.PassWord == LoginModel.PassWord);
 
-            if (LoggedUser != null) {
+            if (LoggedUser != null)
+            {
 
                 ViewBag.LoginMessage = "Successfull Login";
                 ViewBag.LoggedStatus = "in";
                 Session["UserName"] = LoggedUser.UserName;
                 return RedirectToAction("Index");
 
-            } else {
+            }
+            else
+            {
 
                 ViewBag.LoginMessage = "Login unsuccessfull";
                 ViewBag.LoggedStatus = "Out";
@@ -83,7 +87,8 @@ namespace TilausASPNET.Controllers {
                 return View("Login", LoginModel);
             }
         }
-        public ActionResult LogOut() {
+        public ActionResult LogOut()
+        {
 
             Session.Abandon();
             ViewBag.LoggedStatus = "Out";

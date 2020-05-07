@@ -14,13 +14,13 @@ using TilausASPNET.Helpperi;
 
 namespace TilausASPNET.Controllers
 {
-    public class HenkilotController : Controller
+    public class HenkilotController_TEMP : Controller
     {
 
         private TilausDBEntities db = new TilausDBEntities();
 
         // GET: Henkilot
-        public ActionResult Index(string sortOrder, string searchString1)
+        public ActionResult Index()
         {
             if (Session["UserName"] == null)
             {
@@ -29,35 +29,10 @@ namespace TilausASPNET.Controllers
             else
             {
 
+
                 ViewBag.LoggedStatus = "In";
 
-                ViewBag.CurrentSort = sortOrder;
-                ViewBag.SukunimiSortParam = string.IsNullOrEmpty(sortOrder) ? "sukunimi_desc" : "";
-                ViewBag.EtunimiSortParam = sortOrder == "etunimi" ? "etunimi_desc" : "etunimi";
-    
-                var henkilot = (from x in db.Henkilot select x);
-                if (!String.IsNullOrEmpty(searchString1))
-                {
-                    henkilot = henkilot.Where(x => x.Sukunimi.Contains(searchString1));
-                }
-                switch (sortOrder)
-                {
-                    case "sukunimi_desc":
-                        henkilot = henkilot.OrderByDescending(x => x.Sukunimi);
-                        break;
-                    case "etunimi":
-                        henkilot = henkilot.OrderBy(x => x.Etunimi);
-                        break;
-                    case "etunimi_desc":
-                        henkilot = henkilot.OrderByDescending(x => x.Etunimi);
-                        break;
-                    default:
-                        henkilot = henkilot.OrderBy(x => x.Sukunimi);
-                        break;
-                }
-
-
-                return View(henkilot.Include(x => x.Postitoimipaikat));
+                return View(db.Henkilot.ToList());
             }
         }
 
@@ -231,14 +206,13 @@ namespace TilausASPNET.Controllers
         //private void LuoRandomHenkilo()
         //{
         //    string etunimi = HenkiloGenerator.Etunimi();
-        //    string sukunimi = HenkiloGenerator.Sukunimi(); 
 
         //    Henkilot newHlo = new Henkilot
         //    {
         //        Etunimi = etunimi,
         //        Sukunimi = HenkiloGenerator.Sukunimi(),
         //        Osoite = HenkiloGenerator.Osoite(),
-        //        Sahkoposti = etunimi.ToLower()+"."+sukunimi.ToLower() + HenkiloGenerator.Sposti(),
+        //        Sahkoposti = etunimi + HenkiloGenerator.Sposti(),
         //        Postinumero = HenkiloGenerator.Postinumero()
         //    };
         //    db.Henkilot.Add(newHlo);

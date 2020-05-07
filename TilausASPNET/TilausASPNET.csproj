@@ -163,6 +163,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AsiakkaatController.cs" />
     <Compile Include="Controllers\HenkilotController.cs" />
+    <Compile Include="Controllers\HenkilotControllerTEMP_BACKUP.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PostitoimipaikatController.cs" />
     <Compile Include="Controllers\TilauksetController.cs" />
@@ -596,6 +597,7 @@
     <Content Include="Icons\music-player-fill.svg" />
     <Content Include="Icons\music-player.svg" />
     <Content Include="Icons\newspaper.svg" />
+    <Content Include="Icons\NucleoTest.svg" />
     <Content Include="Icons\octagon-fill.svg" />
     <Content Include="Icons\octagon-half.svg" />
     <Content Include="Icons\octagon.svg" />
@@ -922,7 +924,7 @@
     <Content Include="Views\Henkilot\Delete.cshtml" />
     <Content Include="Views\Henkilot\Details.cshtml" />
     <Content Include="Views\Henkilot\Edit.cshtml" />
-    <Content Include="Views\Henkilot\Index.cshtml" />
+    <Content Include="Views\Henkilot\Index_TEMP_BACKUP.cshtml" />
     <Content Include="Views\Tilausrivit\Create.cshtml" />
     <Content Include="Views\Tilausrivit\Delete.cshtml" />
     <Content Include="Views\Tilausrivit\Details.cshtml" />
@@ -939,10 +941,10 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Henkilot\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

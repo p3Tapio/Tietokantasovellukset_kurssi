@@ -19,6 +19,7 @@ namespace TilausASPNET.Models
         {
             this.Asiakkaat = new HashSet<Asiakkaat>();
             this.Tilaukset = new HashSet<Tilaukset>();
+            this.Henkilot = new HashSet<Henkilot>();
         }
     
         public string Postinumero { get; set; }
@@ -28,5 +29,7 @@ namespace TilausASPNET.Models
         public virtual ICollection<Asiakkaat> Asiakkaat { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tilaukset> Tilaukset { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Henkilot> Henkilot { get; set; }
     }
 }

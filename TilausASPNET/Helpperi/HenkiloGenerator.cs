@@ -28,13 +28,15 @@ namespace TilausASPNET.Helpperi
             "@osoite.fi",
             "@joku.ch",
             "@yahoo.com",
-            "@jotain.fi"
+            "@jotain.fi",
+            "@meili.com",
+            "@hotmail"
+
         };
             Random random = new Random();
             int x = random.Next(0, 6);
 
             return loppu[x];
-
 
         }
 
@@ -70,32 +72,19 @@ namespace TilausASPNET.Helpperi
 
             List<string> alku = new List<string>()
         {
-            "Joku",
-            "Jossain",
-            "Missä",
-              "Hieno",
-              "Puna",
-              "Kesä",
-              "Syksy",
-              "Talvi",
-              "Kukka"
+            "Joku","Jossain", "Missä", "Hieno", "Puna", "Kesä",
+              "Syksy", "Talvi","Kukka", "Puu","Jalka","Kahvi","Muki"
         };
             List<string> loppu = new List<string>()
         {
-            "kuja",
-            "katu",
-            "tie",
-            "tormä",
-            "kurvi",
-            "tie",
-            "katu"
+            "kuja", "katu","tie", "tormä","kurvi","tie", "katu"
         };
             string numero = "1234567890";
             string kirjain = "ABCDEFGH";
 
 
             Random random = new Random();
-            int x = random.Next(0, 9);
+            int x = random.Next(0, 13);
             string osoite = alku[x];
             x = random.Next(0, 7);
             osoite += loppu[x] + " ";
@@ -125,11 +114,18 @@ namespace TilausASPNET.Helpperi
             "Sirkku",
             "Kalle",
             "Jussi",
-            "Sami"
+            "Sami",
+            "Erkki",
+            "Keijo",
+            "Sari",
+            "Heikki",
+            "Salla",
+            "Kalevi"
         };
 
+
             Random random = new Random();
-            int x = random.Next(0, 10);
+            int x = random.Next(0, 16);
 
             return etunimi[x];
         }
@@ -147,7 +143,11 @@ namespace TilausASPNET.Helpperi
               "Pöllö",
               "Metsä",
               "Sauna",
-              "Suvi"
+              "Suvi", 
+              "Syksy",
+              "Vaara",
+              "Saari",
+                "Puu"
         };
             List<string> Sukunimi2 = new List<string>()
         {
@@ -158,7 +158,7 @@ namespace TilausASPNET.Helpperi
         };
 
             Random random = new Random();
-            int suku1 = random.Next(0, 10);
+            int suku1 = random.Next(0, 14);
             string sukunimi = Sukunimi1[suku1];
             int suku2 = random.Next(0, 4);
             sukunimi += Sukunimi2[suku2];

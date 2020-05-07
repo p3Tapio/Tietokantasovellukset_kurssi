@@ -7,12 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TilausASPNET.Models {
+namespace TilausASPNET.Models
+{
 
     using System.ComponentModel.DataAnnotations;
 
-    public partial class Logins {
-        public int LoginID { get; set; }
+    public partial class Logins
+    {
+        public int LoginId { get; set; }
         [Required(ErrorMessage = "Anna käyttäjätunnus")]
         public string UserName { get; set; }
         [DataType(DataType.Password)]
