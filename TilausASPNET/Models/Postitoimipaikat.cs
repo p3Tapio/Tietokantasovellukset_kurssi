@@ -24,6 +24,7 @@ namespace TilausASPNET.Models
     
         public string Postinumero { get; set; }
         public string Postitoimipaikka { get; set; }
+        public string PostiNroPaikka { get; set; } 
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Asiakkaat> Asiakkaat { get; set; }

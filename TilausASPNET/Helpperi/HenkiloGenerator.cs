@@ -166,6 +166,13 @@ namespace TilausASPNET.Helpperi
 
             return sukunimi;
         }
+        public static int Esimies()
+        {
+
+            Random random = new Random();
+            return random.Next(0, 5);
+        }
 
     }
+
 }

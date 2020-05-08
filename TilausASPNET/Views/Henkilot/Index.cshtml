@@ -1,7 +1,18 @@
-﻿@model IEnumerable<TilausASPNET.Models.Henkilot>
+﻿@model PagedList.IPagedList<TilausASPNET.Models.Henkilot>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Index";
+
+}
+@section scripts {
+    <script type="text/javascript">
+        $("#HaettavaNumero").on("change", function () {
+            let selValue = $("#HaettavaNumero").val();
+            document.getElementById("PostinumeroHaku").value = selValue;
+        });
+    </script>
 }
 <div class="container">
     <h2>Index</h2>
@@ -12,19 +23,22 @@
 
     @using (Html.BeginForm("Index", "Henkilot", FormMethod.Get))
     {
-        <div class="input-group">
-            <p class="p-1 mr-2 mt-1">@Html.Label("Etsi sukunimellä")</p>
-            <p class="p-1">@Html.TextBox("SearchString1", ViewBag.currentFilter1 as string, new { @class = "form-control" })</p>
-            <p class="p-1"><input type="submit" value="Search" class="form-control btn btn-outline-primary" /></p>
-        </div>
+<div class="input-group">
+    <p class="p-1 mr-2 mt-1">@Html.Label("Etsi sukunimellä:")</p>
+    <p class="p-1">@Html.TextBox("SearchString1", ViewBag.currentFilter1 as string, new { @class = "form-control" })</p>
+    <p class="p-1 ml-2 mt-1 mr-2">@Html.Label("Hae postitoimipaikalla:")</p>
+    <p>@Html.Hidden("PostinumeroHaku", ViewBag.currentFilter1 as string, new { @id = "PostinumeroHaku", @class = "form-control" })</p>
+    <p class="p-1">@Html.DropDownList("Postinumero", null, htmlAttributes: new { @id = "HaettavaNumero", @class = "form-control" })</p>
+    <p class="p-1"><input type="submit" value="Search" class="form-control btn btn-outline-primary" /></p>
+</div>
     }
     <table class="table mt-4">
         <tr>
-            <th> @Html.ActionLink("Etunimi", "Index", new { sortOrder = ViewBag.EtunimiSortParam }) </th>
-            <th>@Html.ActionLink("Sukunimi", "Index", new { sortOrder = ViewBag.SukunimiSortParam }) </th>
-            <th> @Html.DisplayNameFor(model => model.Osoite) </th>
-            <th> @Html.DisplayNameFor(model => model.Postinumero)</th>
-            <th> @Html.DisplayNameFor(model => model.Sahkoposti) </th>
+            <th> @Html.ActionLink("Etunimi", "Index", new { sortOrder = ViewBag.EtunimiSortParam, currentFilter1 = ViewBag.currentFilter1, currentPostinumero = ViewBag.CurrentPostinumero  }) </th>
+            <th>@Html.ActionLink("Sukunimi", "Index", new { sortOrder = ViewBag.SukunimiSortParam, currentFilter1 = ViewBag.currentFilter1, currentPostinumero = ViewBag.CurrentPostinumero }) </th>
+            <th>Osoite </th>
+            <th>Postinumero</th>
+            <th>Sähkoposti</th>
             <th></th>
         </tr>
 
@@ -49,4 +63,9 @@
         }
 
     </table>
+    <div class="ml-2 text-center">
+                                                                                                            @*currentFilter = currentSukuni*@
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter1 = ViewBag.currentFilter1, currentPostinumero = ViewBag.CurrentPostinumero }))
+        Sivu @( Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+    </div>
 </div>
