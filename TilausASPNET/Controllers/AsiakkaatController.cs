@@ -6,6 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using TilausASPNET.Filtterit;
+using TilausASPNET.Helpperit;
 using TilausASPNET.Models;
 
 namespace TilausASPNET.Controllers {
@@ -13,14 +15,19 @@ namespace TilausASPNET.Controllers {
         private TilausDBEntities db = new TilausDBEntities();
 
         // GET: Asiakkaat
-        public ActionResult Index() {
+        public ActionResult Index(string findName) {
             if (Session["UserName"] == null) {
                 ViewBag.LoggedStatus = "Out";
                 return RedirectToAction("login", "home");
             } else {
                 ViewBag.LoggedStatus = "In";
                 var asiakkaat = db.Asiakkaat.Include(a => a.Postitoimipaikat);
-                return View(db.Asiakkaat.ToList());
+                if(!String.IsNullOrEmpty(findName))
+                {
+                    asiakkaat = AsiakkaatFilters.FindSortByName(findName, asiakkaat);
+                }
+
+                return View(asiakkaat);
             }
         }
 
@@ -160,5 +167,17 @@ namespace TilausASPNET.Controllers {
             }
             base.Dispose(disposing);
         }
+        //private void LuoRandomAsiakas()
+        //{
+        //    Asiakkaat asiakas = new Asiakkaat
+        //    {
+        //        Nimi = AsiakasGenerator.Nimi(),
+        //        Osoite = AsiakasGenerator.Osoite(),
+        //        Postinumero = AsiakasGenerator.Postinumero()
+
+        //    };
+        //    db.Asiakkaat.Add(asiakas);
+        //    db.SaveChanges(); 
+        //}
     }
 }

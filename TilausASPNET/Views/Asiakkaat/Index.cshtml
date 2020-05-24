@@ -7,6 +7,16 @@
 <h2 class="mb-4 ml-3">Asiakkaat</h2>
 
 <div class="container">
+    @using (Html.BeginForm("Index", "Asiakkaat", FormMethod.Get))
+    {
+
+        <div class="input-group">
+            <p class="p-1 mr-2 mt-1 ml-3">@Html.Label("Etsi nimellä: ")</p>
+            <p class="p-1">@Html.TextBox("findName", ViewBag.findName as string, new { @class = "form-control" })</p>
+            <p class="p-1"><input type="submit" value="Hae" class="form-control" /></p>
+        </div>
+
+    }
     <table class="table table-hover">
         <thead class="thead-dark">
             <tr>
@@ -45,7 +55,7 @@
                 </tr>
             }
         </tbody>
-     
+
 
     </table>
     <p>

@@ -7,7 +7,8 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using TilausASPNET.Models;
-using TilausASPNET.Helpperi;
+using TilausASPNET.Helpperit;
+using TilausASPNET.Filtterit;
 using PagedList;
 
 namespace TilausASPNET.Controllers

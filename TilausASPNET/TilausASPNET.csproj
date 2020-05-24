@@ -169,11 +169,13 @@
     <Compile Include="Controllers\TilauksetController.cs" />
     <Compile Include="Controllers\TilausrivitController.cs" />
     <Compile Include="Controllers\TuotteetController.cs" />
+    <Compile Include="Filtterit\AsiakkaatFilters.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpperi\HenkiloGenerator.cs" />
-    <Compile Include="Helpperi\HenkilotFilters.cs" />
+    <Compile Include="Helpperit\AsiakasGenerator.cs" />
+    <Compile Include="Helpperit\HenkiloGenerator.cs" />
+    <Compile Include="Filtterit\HenkilotFilters.cs" />
     <Compile Include="Models\Asiakkaat.cs">
       <DependentUpon>TilausDBModel.tt</DependentUpon>
     </Compile>

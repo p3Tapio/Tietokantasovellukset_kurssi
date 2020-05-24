@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TilausASPNET.Helpperi
+namespace TilausASPNET.Helpperit
 {
     public class HenkiloGenerator
     {

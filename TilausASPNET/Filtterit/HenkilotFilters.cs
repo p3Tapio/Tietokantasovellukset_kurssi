@@ -2,7 +2,7 @@
 using System.Linq;
 using TilausASPNET.Models;
 
-namespace TilausASPNET.Helpperi
+namespace TilausASPNET.Filtterit
 {
     public class HenkilotFilters
     {
