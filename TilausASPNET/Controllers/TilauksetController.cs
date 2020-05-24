@@ -6,34 +6,57 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using TilausASPNET.Filtterit;
 using TilausASPNET.Models;
 
-namespace TilausASPNET.Controllers {
-    public class TilauksetController : Controller {
+namespace TilausASPNET.Controllers
+{
+    public class TilauksetController : Controller
+    {
         private TilausDBEntities db = new TilausDBEntities();
 
         // GET: Tilaukset
-        public ActionResult Index() {
-            if (Session["UserName"] == null) {
+        public ActionResult Index(int? asiakasHaku)
+        {
+            if (Session["UserName"] == null)
+            {
                 return RedirectToAction("login", "home");
-            } else {
+            }
+            else
+            {
                 ViewBag.LoggedStatus = "In";
                 var tilaukset = db.Tilaukset.Include(t => t.Asiakkaat).Include(t => t.Postitoimipaikat);
+                if (asiakasHaku != null && asiakasHaku != 0)
+                {
+                    tilaukset = tilaukset.Where(x => x.AsiakasID == asiakasHaku);
+                }
+
+                var asiakkaat = from x in db.Asiakkaat select x;
+                var asikkaatSelectList = TilauksetFilters.AsiakkaatDropDownList(asiakkaat);
+             
+                ViewBag.Asiakas = new SelectList(asikkaatSelectList, "AsiakasID", "Nimi", asiakasHaku);
+
                 return View(tilaukset.ToList());
             }
         }
 
         // GET: Tilaukset/Details/5
-        public ActionResult Details(int? id) {
-            if (Session["UserName"] == null) {
+        public ActionResult Details(int? id)
+        {
+            if (Session["UserName"] == null)
+            {
                 return RedirectToAction("login", "home");
-            } else {
+            }
+            else
+            {
                 ViewBag.LoggedStatus = "In";
-                if (id == null) {
+                if (id == null)
+                {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
                 Tilaukset tilaukset = db.Tilaukset.Find(id);
-                if (tilaukset == null) {
+                if (tilaukset == null)
+                {
                     return HttpNotFound();
                 }
                 return View(tilaukset);
@@ -41,10 +64,14 @@ namespace TilausASPNET.Controllers {
         }
 
         // GET: Tilaukset/Create
-        public ActionResult Create() {
-            if (Session["UserName"] == null) {
+        public ActionResult Create()
+        {
+            if (Session["UserName"] == null)
+            {
                 return RedirectToAction("login", "home");
-            } else {
+            }
+            else
+            {
                 ViewBag.LoggedStatus = "In";
                 ViewBag.AsiakasID = new SelectList(db.Asiakkaat, "AsiakasID", "Nimi");
                 ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero");
@@ -57,12 +84,17 @@ namespace TilausASPNET.Controllers {
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TilausID,AsiakasID,Toimitusosoite,Postinumero,Tilauspvm,Toimituspvm")] Tilaukset tilaukset) {
-            if (Session["UserName"] == null) {
+        public ActionResult Create([Bind(Include = "TilausID,AsiakasID,Toimitusosoite,Postinumero,Tilauspvm,Toimituspvm")] Tilaukset tilaukset)
+        {
+            if (Session["UserName"] == null)
+            {
                 return RedirectToAction("login", "home");
-            } else {
+            }
+            else
+            {
                 ViewBag.LoggedStatus = "In";
-                if (ModelState.IsValid) {
+                if (ModelState.IsValid)
+                {
 
                     db.Tilaukset.Add(tilaukset);
                     db.SaveChanges();
@@ -76,16 +108,22 @@ namespace TilausASPNET.Controllers {
         }
 
         // GET: Tilaukset/Edit/5
-        public ActionResult Edit(int? id) {
-            if (Session["UserName"] == null) {
+        public ActionResult Edit(int? id)
+        {
+            if (Session["UserName"] == null)
+            {
                 return RedirectToAction("login", "home");
-            } else {
+            }
+            else
+            {
                 ViewBag.LoggedStatus = "In";
-                if (id == null) {
+                if (id == null)
+                {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
                 Tilaukset tilaukset = db.Tilaukset.Find(id);
-                if (tilaukset == null) {
+                if (tilaukset == null)
+                {
                     return HttpNotFound();
                 }
                 ViewBag.AsiakasID = new SelectList(db.Asiakkaat, "AsiakasID", "Nimi", tilaukset.AsiakasID);
@@ -99,12 +137,17 @@ namespace TilausASPNET.Controllers {
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TilausID,AsiakasID,Toimitusosoite,Postinumero,Tilauspvm,Toimituspvm")] Tilaukset tilaukset) {
-            if (Session["UserName"] == null) {
+        public ActionResult Edit([Bind(Include = "TilausID,AsiakasID,Toimitusosoite,Postinumero,Tilauspvm,Toimituspvm")] Tilaukset tilaukset)
+        {
+            if (Session["UserName"] == null)
+            {
                 return RedirectToAction("login", "home");
-            } else {
+            }
+            else
+            {
                 ViewBag.LoggedStatus = "In";
-                if (ModelState.IsValid) {
+                if (ModelState.IsValid)
+                {
                     db.Entry(tilaukset).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -116,16 +159,22 @@ namespace TilausASPNET.Controllers {
         }
 
         // GET: Tilaukset/Delete/5
-        public ActionResult Delete(int? id) {
-            if (Session["UserName"] == null) {
+        public ActionResult Delete(int? id)
+        {
+            if (Session["UserName"] == null)
+            {
                 return RedirectToAction("login", "home");
-            } else {
+            }
+            else
+            {
                 ViewBag.LoggedStatus = "In";
-                if (id == null) {
+                if (id == null)
+                {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
                 Tilaukset tilaukset = db.Tilaukset.Find(id);
-                if (tilaukset == null) {
+                if (tilaukset == null)
+                {
                     return HttpNotFound();
                 }
                 return View(tilaukset);
@@ -135,18 +184,25 @@ namespace TilausASPNET.Controllers {
         // POST: Tilaukset/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id) {
-            if (Session["UserName"] == null) {
+        public ActionResult DeleteConfirmed(int id)
+        {
+            if (Session["UserName"] == null)
+            {
                 return RedirectToAction("login", "home");
-            } else {
+            }
+            else
+            {
                 ViewBag.LoggedStatus = "In";
-                try {
+                try
+                {
                     Tilaukset tilaukset = db.Tilaukset.Find(id);
                     db.Tilaukset.Remove(tilaukset);
                     db.SaveChanges();
                     return RedirectToAction("Index");
 #pragma warning disable CS0168 // Variable is declared but never used
-                } catch (Exception ForeignKeyConstraint) {
+                }
+                catch (Exception ForeignKeyConstraint)
+                {
 #pragma warning restore CS0168 // Variable is declared but never used
                     return Content("<script language='javascript' type='text/javascript'>alert('Tilausrivit -taulussa olevaa tietoa ei voi poistaa');</script>");
 
@@ -155,8 +211,10 @@ namespace TilausASPNET.Controllers {
             }
         }
 
-        protected override void Dispose(bool disposing) {
-            if (disposing) {
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
                 db.Dispose();
             }
             base.Dispose(disposing);

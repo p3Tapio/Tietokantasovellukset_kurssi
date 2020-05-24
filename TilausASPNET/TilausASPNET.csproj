@@ -170,6 +170,7 @@
     <Compile Include="Controllers\TilausrivitController.cs" />
     <Compile Include="Controllers\TuotteetController.cs" />
     <Compile Include="Filtterit\AsiakkaatFilters.cs" />
+    <Compile Include="Filtterit\TilauksetFilters.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
