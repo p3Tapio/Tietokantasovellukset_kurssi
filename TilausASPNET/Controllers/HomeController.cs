@@ -10,9 +10,11 @@ namespace TilausASPNET.Controllers {
         TilausDBEntities db = new TilausDBEntities();
         public ActionResult Index() {
 
+            ViewBag.LoginError = 0;
+
             if (Session["UserName"] == null) {
                 ViewBag.LoggedStatus = "Out";
-
+                
 
             } else {
                 ViewBag.LoggedStatus = "In";
@@ -73,8 +75,9 @@ namespace TilausASPNET.Controllers {
 
                 ViewBag.LoginMessage = "Successfull Login";
                 ViewBag.LoggedStatus = "in";
+                ViewBag.LoginError = 0;
                 Session["UserName"] = LoggedUser.UserName;
-                return RedirectToAction("Index");
+                return RedirectToAction("Index");   
 
             }
             else
@@ -82,9 +85,10 @@ namespace TilausASPNET.Controllers {
 
                 ViewBag.LoginMessage = "Login unsuccessfull";
                 ViewBag.LoggedStatus = "Out";
+                ViewBag.LoginError = 1; 
                 LoginModel.LoginErrorMessage = "Tuntematon käyttäjätunnus tai salasana";
-                ViewBag.LoginErrorMessage = LoginModel.LoginErrorMessage;  // Tsekkaa viestin näyttö ja korjaa kun Moodle toimii 
-                return View("Login", LoginModel);
+                ViewBag.LoginErrorMessage = LoginModel.LoginErrorMessage; 
+                return View("Index", LoginModel);
             }
         }
         public ActionResult LogOut()

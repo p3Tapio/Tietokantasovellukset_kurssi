@@ -1,10 +1,13 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace TilausASPNET {
-    public class BundleConfig {
+namespace TilausASPNET
+{
+    public class BundleConfig
+    {
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
-        public static void RegisterBundles(BundleCollection bundles) {
+        public static void RegisterBundles(BundleCollection bundles)
+        {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -22,9 +25,12 @@ namespace TilausASPNET {
             bundles.Add(new StyleBundle("~/Content/css").Include(
 
                       "~/Content/bootstrapFlatly.css",
-                      
+
                       "~/Content/site.css "
                          ));
+            BundleTable.EnableOptimizations = true;
         }
+
     }
+
 }

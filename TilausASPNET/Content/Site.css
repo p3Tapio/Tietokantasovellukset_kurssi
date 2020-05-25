@@ -25,16 +25,25 @@ textarea {
     background-color: rgba(255, 255, 255, 0.075);
     border-color: #839496;
 }
+
 h2 {
     margin-top: 14px;
 }
+
 .ddLine {
     line-height: 120%;
 }
+
 .table > thead > tr > th {
     cursor: pointer;
-  
 }
+
 .omaLink {
     color: black;
+}
+.red-undo:hover {
+    color: white;
+}
+.red-undo {
+    color: red;
 }

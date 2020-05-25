@@ -23,7 +23,7 @@ namespace TilausASPNET.Filtterit
                     Postinumero = asiakas.Postinumero,
                     Osoite = asiakas.Osoite
                 };
-                // dropdowniin vain asiakkaat jotka ovat tehneet tilauksia:
+                // dropdowniin vain tilauksia tehneet asiakkaat:
                 var z = db.Tilaukset.FirstOrDefault(y => y.AsiakasID == x.AsiakasID);
                 if (z != null)
                 {
