@@ -1,0 +1,34 @@
+﻿<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-lg-5">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/home/index">Etusivu &nbsp; | <span class="sr-only">(current)</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/home/about">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/home/contact">Yhteystiedot</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/home/map">Sijainti</a>
+            </li>
+            @*<li class="nav-item">
+                    <a class="nav-link" href="/home/login">Login</a>
+                </li>*@
+            <li class="nav-item">
+                <a class="nav-link" style="cursor:pointer" data-toggle="modal" data-target="#loginModal">Kirjaudu</a>
+            </li>
+            @*<li class="nav-item">
+                    <p style="color:aliceblue; margin-top: 9px;">|&nbsp; @ViewBag.LoggedStatus</p>
+                </li>*@
+        </ul>
+    </div>
+</nav>
+@{
+    Html.RenderPartial("_loginModal");
+}

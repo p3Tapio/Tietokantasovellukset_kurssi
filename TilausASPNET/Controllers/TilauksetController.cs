@@ -213,32 +213,41 @@ namespace TilausASPNET.Controllers
         }
         public ActionResult OrderSummary()
         {
-            var orderSummary = from tilaus in db.Tilaukset
-                               join trivi in db.Tilausrivit on tilaus.TilausID equals trivi.TilausID
-                               join asiakas in db.Asiakkaat on tilaus.AsiakasID equals asiakas.AsiakasID
-                               join tuote in db.Tuotteet on trivi.TuoteID equals tuote.TuoteID
-                               join postitoimi in db.Postitoimipaikat on tilaus.Postinumero equals postitoimi.Postinumero
-                               // where, order by ? 
-                               select new OrderSummaryData
-                               {
-                                   TilausID = tilaus.TilausID,
-                                   TilausriviID = trivi.TilausriviID,
-                                   TuoteID = (int)trivi.TuoteID,
-                                   TuoteNimi = tuote.Nimi,
-                                   Maara = (int)trivi.Maara,
-                                   TilausAhinta = (float)trivi.Ahinta,
-                                   ImageLink = tuote.ImageLink,
-                                   AsiakasID = (int)tilaus.AsiakasID,
-                                   AsiakasNimi = asiakas.Nimi,
-                                   Toimitusosoite = tilaus.Toimitusosoite,
-                                   Postinumero = tilaus.Postinumero,
-                                   Postitoimipaikka = postitoimi.Postitoimipaikka,
-                                   Tilauspvm = tilaus.Tilauspvm,
-                                   Toimituspvm = tilaus.Toimituspvm
-                              
-                               };
+            if (Session["UserName"] == null)
+            {
+                return RedirectToAction("login", "home");
+            }
+            else
+            {
+                ViewBag.LoggedStatus = "In";
 
-            return View(orderSummary);
+                var orderSummary = from tilaus in db.Tilaukset
+                                   join trivi in db.Tilausrivit on tilaus.TilausID equals trivi.TilausID
+                                   join asiakas in db.Asiakkaat on tilaus.AsiakasID equals asiakas.AsiakasID
+                                   join tuote in db.Tuotteet on trivi.TuoteID equals tuote.TuoteID
+                                   join postitoimi in db.Postitoimipaikat on tilaus.Postinumero equals postitoimi.Postinumero
+                                   // where, order by ? 
+                                   select new OrderSummaryData
+                                   {
+                                       TilausID = tilaus.TilausID,
+                                       TilausriviID = trivi.TilausriviID,
+                                       TuoteID = (int)trivi.TuoteID,
+                                       TuoteNimi = tuote.Nimi,
+                                       Maara = (int)trivi.Maara,
+                                       TilausAhinta = (float)trivi.Ahinta,
+                                       ImageLink = tuote.ImageLink,
+                                       AsiakasID = (int)tilaus.AsiakasID,
+                                       AsiakasNimi = asiakas.Nimi,
+                                       Toimitusosoite = tilaus.Toimitusosoite,
+                                       Postinumero = tilaus.Postinumero,
+                                       Postitoimipaikka = postitoimi.Postitoimipaikka,
+                                       Tilauspvm = tilaus.Tilauspvm,
+                                       Toimituspvm = tilaus.Toimituspvm
+
+                                   };
+
+                return View(orderSummary);
+            }
 
         }
 

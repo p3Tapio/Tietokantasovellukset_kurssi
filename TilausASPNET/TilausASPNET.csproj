@@ -948,6 +948,9 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Henkilot\Index.cshtml" />
     <Content Include="Views\Tilaukset\OrderSummary.cshtml" />
+    <Content Include="Views\Shared\_NavLoggedIn.cshtml" />
+    <Content Include="Views\Shared\_NavLoggedOut.cshtml" />
+    <Content Include="Views\Home\_loginModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
