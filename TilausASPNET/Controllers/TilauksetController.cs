@@ -250,6 +250,20 @@ namespace TilausASPNET.Controllers
             }
 
         }
+        public ActionResult TilausOtsikot()
+        {
+            if (Session["UserName"] == null)
+            {
+                return RedirectToAction("login", "home");
+            }
+            else
+            {
+                var tilaukset = db.Tilaukset.Include(x => x.Asiakkaat).Include(x => x.Postitoimipaikat);
+
+                return View(tilaukset.ToList());
+            }
+        }
+
 
         protected override void Dispose(bool disposing)
         {
