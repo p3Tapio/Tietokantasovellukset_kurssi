@@ -263,8 +263,28 @@ namespace TilausASPNET.Controllers
                 return View(tilaukset.ToList());
             }
         }
+        public ActionResult _Tilausrivit(int? id)
+        {
+            System.Diagnostics.Debug.WriteLine("ID: " + id);
+            var orderRowList = from tilaus in db.Tilaukset
+                               join trivi in db.Tilausrivit on tilaus.TilausID equals trivi.TilausID
+                               join asiakas in db.Asiakkaat on tilaus.AsiakasID equals asiakas.AsiakasID
+                               join tuote in db.Tuotteet on trivi.TuoteID equals tuote.TuoteID
+                               where tilaus.TilausID == id
+                               select new OrderRows
+                               {
+                                   TilausID = tilaus.TilausID, 
+                                   TilausriviID = trivi.TilausriviID,
+                                   TuoteID = (int)trivi.TuoteID,
+                                   TuoteNimi = tuote.Nimi,
+                                   Maara = (int)trivi.Maara,
+                                   TilausAhinta = (float)trivi.Ahinta,
+                                   AsiakasID = (int)tilaus.AsiakasID
+                               };
 
+            return PartialView(orderRowList);
 
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -1,8 +1,6 @@
 ﻿
 @model IEnumerable<TilausASPNET.Models.Tilaukset>
 
-
-
 @{
     ViewBag.Title = "TilausOtsikot";
 }
@@ -11,19 +9,21 @@
         $(function () {
             $(".showOrder").click(function () {
                 let tilausId = $(this).data("tilausid");
-                //alert("klikkasit " + tilausId);
+                console.log("tilausId", tilausId);
+                var url = "/tilaukset/_Tilausrivit/?id=" + tilausId;
+                $("#orderDetails_" + tilausId).append("<p>Ladataan tilauksen " + tilausId + " rivejä....<p>");
+                var $detailDiv = $("#orderDetails_" + tilausId)
+
+                $.get(url, function (data) {
+                    $detailDiv.replaceWith(data);
+                });
             });
         });
-
-
     </script>
 }
 
 <h2 class="mb-4 ml-3">Tilausotsikot</h2>
 
-@*<p>
-        @Html.ActionLink("Create New", "Create")
-    </p>*@
 <div class="container-fluid">
     <div class="card-header">
         <a class="card-link">
@@ -64,32 +64,10 @@
             </div>
             <div id="collapse_@item.TilausID" class="collapse" data-parent="#accordion">
                 <div class="card-body">
-                    <p>Ladataan tilauksen tietoja.... </p>
-                    @*<div id="orderDetails_@item.TilausID"></div>*@
+                    <div id="orderDetails_@item.TilausID"></div>
                 </div>
             </div>
         }
     </div>
 </div>
-
-
-
-
-@*<tr class="showOrder" data-tilausid="@item.TilausID">
-        <td> @Html.DisplayFor(modelItem => item.TilausID)</td>
-        <td> @Html.DisplayFor(modelItem => item.Asiakkaat.Nimi) </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Toimitusosoite)<br />
-            @Html.DisplayFor(modelItem => item.Postitoimipaikat.Postinumero)
-            @Html.DisplayFor(modelItem => item.Postitoimipaikat.Postitoimipaikka)
-        </td>
-        <td> @item.Tilauspvm.ToString().TrimEnd('.', ':', '0')</td>
-        <td> @item.Toimituspvm.ToString().TrimEnd('.', ':', '0')</td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.TilausID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.TilausID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.TilausID })
-        </td>
-    </tr>*@
-
 
