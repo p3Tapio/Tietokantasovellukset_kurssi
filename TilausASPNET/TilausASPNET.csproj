@@ -954,6 +954,7 @@
     <Content Include="Views\Home\_loginModal.cshtml" />
     <Content Include="Views\Tilaukset\TilausOtsikot.cshtml" />
     <Content Include="Views\Tilaukset\_Tilausrivit.cshtml" />
+    <Content Include="Views\Tilaukset\_ModalEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

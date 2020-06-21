@@ -6,15 +6,32 @@
 }
 @section scripts {
     <script type="text/javascript">
+
         $("#HaettavaAsiakas").on("change", function () {
             let selValue = $("#HaettavaAsiakas").val();
             document.getElementById("AsiakasHaku").value = selValue;
+        });
+
+        $(function () {
+            $(".getOrderId").click(function () {
+                let orderId = $(this).data("orderid");
+                let url = "/tilaukset/_ModalEdit/?id=" + orderId;
+
+                $("#orderEdit").append("<p>Avataan tilauksen " + orderId + " muokkausikkuna...</p>");
+
+                let $detailDivEdit = $("#orderEdit");
+                $.get(url, function (data) {
+                    $detailDivEdit.replaceWith(data);
+                    $("#ModalOrderEdit").modal("show");
+                });
+            });
         });
     </script>
 }
 <h2 class="mb-4 ml-3">Tilaukset</h2>
 
 <div class="container">
+    <div id="orderEdit"></div>
     @using (Html.BeginForm("Index", "Tilaukset", FormMethod.Get))
     {
         <div style="white-space:nowrap" class="row ml-2">
@@ -24,6 +41,7 @@
             <p class="p-1 ml-2"><input type="submit" value="Search" class="form-control btn btn-outline-primary" /></p>
         </div>
     }
+
     <table class="table table-hover">
         <thead class="thead-dark">
             <tr>
@@ -53,7 +71,7 @@
                     <td>
                         <div class="justify-content-end">
                             <a class="btn btn-outline-secondary m-md-1" title="Details" href="~/tilaukset/Details//@item.TilausID"><img src="~/Icons/info-square.svg" height="22" /></a>
-                            <a class="btn btn-outline-secondary m-md-1" title="Edit" href="~/Tilaukset/Edit/@item.TilausID"><img src="~/Icons/pencil-square.svg" height="20" /></a>
+                            <button class="btn btn-outline-secondary m-md-1 getOrderId" title="Edit" data-orderid="@item.TilausID"><img src="~/Icons/pencil-square.svg" height="20" /></button>
                             <a class="btn btn-outline-secondary m-md-1" title="Delete" href="~/Tilaukset/Delete/@item.TilausID"><img src="~/Icons/x-square.svg" height="20" /></a>
                         </div>
                     </td>

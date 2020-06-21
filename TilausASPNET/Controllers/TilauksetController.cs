@@ -132,7 +132,6 @@ namespace TilausASPNET.Controllers
                 return View(tilaukset);
             }
         }
-
         // POST: Tilaukset/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -158,6 +157,30 @@ namespace TilausASPNET.Controllers
                 return View(tilaukset);
             }
         }
+        public ActionResult _ModalEdit(int? id)
+        {
+            if (Session["UserName"] == null)
+            {
+                return RedirectToAction("login", "home");
+            }
+            else
+            {
+                ViewBag.LoggedStatus = "In";
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Tilaukset tilaukset = db.Tilaukset.Find(id);
+                if (tilaukset == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.AsiakasID = new SelectList(db.Asiakkaat, "AsiakasID", "Nimi", tilaukset.AsiakasID);
+                ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero", tilaukset.Postinumero);
+                return PartialView("_ModalEdit", tilaukset);
+            }
+        }
+
 
         // GET: Tilaukset/Delete/5
         public ActionResult Delete(int? id)
