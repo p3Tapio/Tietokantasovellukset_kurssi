@@ -28,12 +28,11 @@ namespace TilausASPNET.Controllers
             }
             else
             {
-
                 ViewBag.LoggedStatus = "In";
 
                 ViewBag.CurrentSort = sortOrder;
                 ViewBag.SukunimiSortParam = string.IsNullOrEmpty(sortOrder) ? "sukunimi_desc" : "";
-                ViewBag.EtunimiSortParam = sortOrder == "etunimi" ? "etunimi_desc" : "etunimi";         // = sortOrder == --> Ilmeisesti vertailu riippuu siitä oliko sortOrder ennestään etunimi 
+                ViewBag.EtunimiSortParam = sortOrder == "etunimi" ? "etunimi_desc" : "etunimi";        
 
                 if (searchString1 != null) page = 1;
                 else searchString1 = currentFilter1;
@@ -69,7 +68,7 @@ namespace TilausASPNET.Controllers
                 }
 
                 var postiLista = from x in db.Postitoimipaikat select x;
-                var postiSelectList = HenkilotFilters.PostiDropDownList(postiLista);    // source, key, sisalto, metodin parametri, jonka nimesin kuten cshtml:ssä hidden-kentän
+                var postiSelectList = HenkilotFilters.PostiDropDownList(postiLista);    
 
                 ViewBag.Postinumero = new SelectList(postiSelectList, "Postinumero", "PostiNroPaikka", PostinumeroHaku);
 
@@ -179,7 +178,7 @@ namespace TilausASPNET.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Henkilo_id,Etunimi,Sukunimi,Osoite,Esimies,Postinumero,Sahkoposti")] Henkilot henkilot)
+        public ActionResult Edit([Bind(Include = "Henkilo_id,Etunimi,Sukunimi,Osoite,Esimies,Postinumero,Sahkoposti, Photo, PhotoPath, kuva")] Henkilot henkilot)
         {
             if (Session["UserName"] == null)
             {
@@ -191,7 +190,16 @@ namespace TilausASPNET.Controllers
                 ViewBag.LoggedStatus = "In";
                 if (ModelState.IsValid)
                 {
+                    int count = Request.Files.Count;
+                    var file = Request.Files[0];
+                    string filename = file.FileName;
+                    byte[] buffer = new byte[file.InputStream.Length];
+                    file.InputStream.Read(buffer, 0, (int)file.InputStream.Length);
+
                     db.Entry(henkilot).State = EntityState.Modified;
+                    henkilot.Photo = buffer;
+                    henkilot.PhotoPath = filename;
+
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }

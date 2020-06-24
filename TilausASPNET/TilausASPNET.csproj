@@ -163,7 +163,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AsiakkaatController.cs" />
     <Compile Include="Controllers\HenkilotController.cs" />
-    <Compile Include="Controllers\HenkilotControllerTEMP_BACKUP.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NWProductsController.cs" />
     <Compile Include="Controllers\PostitoimipaikatController.cs" />

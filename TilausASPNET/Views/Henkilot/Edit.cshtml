@@ -7,7 +7,8 @@
 <h2 class="mb-4 ml-3">Edit</h2>
 
 
-@using (Html.BeginForm())
+
+@using (Html.BeginForm("Edit", "Henkilot", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     <div class="container">
@@ -48,7 +49,6 @@
                     @Html.ValidationMessageFor(model => model.Postinumero, "", new { @class = "text-danger" })
                 </div>
             </div>
-
             <div class="form-group">
                 @Html.LabelFor(model => model.Sahkoposti, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -56,7 +56,27 @@
                     @Html.ValidationMessageFor(model => model.Sahkoposti, "", new { @class = "text-danger" })
                 </div>
             </div>
-
+            <div class="form-group">
+                <div class="control-label col-md-2 mb-2">
+                    Kuva
+                </div>
+                <div class="col-md-10 mb-4">
+                    <input type="file" name="kuva" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    @if (Model.Photo != null)
+                    {
+                        var base64 = Convert.ToBase64String(Model.Photo);
+                        var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+                        <img src='@imgsrc' style="max-width:200px;max-height:200px" />
+                    }
+                    else
+                    { <p>Käyttäjälle ei ole vielä tallennettu kuvaa.</p>
+                    }
+                </div>
+            </div>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <a class="btn btn-outline-secondary" href="~/Henkilot" style="color:black"><img src="~/Icons/arrow-bar-left.svg" height="15" width="15" />&nbsp;Palaa tallentamatta</a>
@@ -65,5 +85,5 @@
             </div>
         </div>
     </div>
-    <br/>
+    <br />
 }
