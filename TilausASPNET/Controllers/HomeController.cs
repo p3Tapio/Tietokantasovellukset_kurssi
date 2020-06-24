@@ -64,6 +64,7 @@ namespace TilausASPNET.Controllers {
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Authorize(Logins LoginModel)
         {
 
@@ -77,7 +78,8 @@ namespace TilausASPNET.Controllers {
                 ViewBag.LoggedStatus = "in";
                 ViewBag.LoginError = 0;
                 Session["UserName"] = LoggedUser.UserName;
-                return RedirectToAction("Index");   
+                Session["LoginID"] = LoggedUser.LoginId;
+                return RedirectToAction("Index", "Home");   
 
             }
             else
@@ -97,6 +99,15 @@ namespace TilausASPNET.Controllers {
             Session.Abandon();
             ViewBag.LoggedStatus = "Out";
             return RedirectToAction("Index", "Home");
+        }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+      
+            base.Dispose(disposing);
         }
     }
 }

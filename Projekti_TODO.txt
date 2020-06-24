@@ -1,9 +1,0 @@
--- Henkilöt postitoimipaikka ei toimi .. vertaa Asiakaisiin jossa toimii 
--- Henkilöiden luontiin dropdown kuten Asiakkaissa
-
--- tilauksissa uuden tilauksen luonnissa yrityksen tiedot automaattisesti, eli pelkkä pudotusvalikko yritykselle? 
--- pvm on outo, näyttää kellonajan 00:00, muokkaa esim LINQ:n kautta
-
-
-
--- taulujen riippuvuudet?
