@@ -1,7 +1,0 @@
-https://tilausdbaspnet.azurewebsites.net/
-
---- 
-Kirjautuminen: 
-teppo
-testaaja
-
