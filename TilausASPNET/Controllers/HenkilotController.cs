@@ -32,7 +32,7 @@ namespace TilausASPNET.Controllers
 
                 ViewBag.CurrentSort = sortOrder;
                 ViewBag.SukunimiSortParam = string.IsNullOrEmpty(sortOrder) ? "sukunimi_desc" : "";
-                ViewBag.EtunimiSortParam = sortOrder == "etunimi" ? "etunimi_desc" : "etunimi";        
+                ViewBag.EtunimiSortParam = sortOrder == "etunimi" ? "etunimi_desc" : "etunimi";
 
                 if (searchString1 != null) page = 1;
                 else searchString1 = currentFilter1;
@@ -68,7 +68,7 @@ namespace TilausASPNET.Controllers
                 }
 
                 var postiLista = from x in db.Postitoimipaikat select x;
-                var postiSelectList = HenkilotFilters.PostiDropDownList(postiLista);    
+                var postiSelectList = HenkilotFilters.PostiDropDownList(postiLista);
 
                 ViewBag.Postinumero = new SelectList(postiSelectList, "Postinumero", "PostiNroPaikka", PostinumeroHaku);
 
@@ -124,7 +124,7 @@ namespace TilausASPNET.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Henkilo_id,Etunimi,Sukunimi,Osoite,Esimies,Postinumero,Sahkoposti")] Henkilot henkilot)
+        public ActionResult Create([Bind(Include = "Henkilo_id,Etunimi,Sukunimi,Osoite,Esimies,Postinumero,Sahkoposti, Photo, PhotoPath, kuva")] Henkilot henkilot)
         {
             if (Session["UserName"] == null)
             {
@@ -133,15 +133,32 @@ namespace TilausASPNET.Controllers
             }
             else
             {
-                ViewBag.LoggedStatus = "In";
-                if (ModelState.IsValid)
-                {
-                    db.Henkilot.Add(henkilot);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postitoimipaikka", henkilot.Postinumero);
 
+
+                ViewBag.LoggedStatus = "In";
+                try
+                {
+                    if (ModelState.IsValid)
+                    {
+                        int count = Request.Files.Count;
+                        var file = Request.Files[0];
+                        string filename = file.FileName;
+                        byte[] buffer = new byte[file.InputStream.Length];
+                        file.InputStream.Read(buffer, 0, (int)file.InputStream.Length);
+
+                        henkilot.Photo = buffer;
+                        henkilot.PhotoPath = filename;
+
+                        db.Henkilot.Add(henkilot);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postitoimipaikka", henkilot.Postinumero);
+                }
+                catch (Exception)
+                {
+                    return Content("<script language='javascript' type='text/javascript'>alert('Postinumeroa ei ole vielä tallennettu kantaan. Tallenna se ensin Postitoimipaikat-sivulla.'); window.location.replace(\"\");</script>");
+                }
                 return View(henkilot);
             }
         }
@@ -188,24 +205,31 @@ namespace TilausASPNET.Controllers
             else
             {
                 ViewBag.LoggedStatus = "In";
-                if (ModelState.IsValid)
+                try
                 {
-                    int count = Request.Files.Count;
-                    var file = Request.Files[0];
-                    string filename = file.FileName;
-                    byte[] buffer = new byte[file.InputStream.Length];
-                    file.InputStream.Read(buffer, 0, (int)file.InputStream.Length);
+                    if (ModelState.IsValid)
+                    {
+                        int count = Request.Files.Count;
+                        var file = Request.Files[0];
+                        string filename = file.FileName;
+                        byte[] buffer = new byte[file.InputStream.Length];
+                        file.InputStream.Read(buffer, 0, (int)file.InputStream.Length);
 
-                    db.Entry(henkilot).State = EntityState.Modified;
-                    henkilot.Photo = buffer;
-                    henkilot.PhotoPath = filename;
+                        db.Entry(henkilot).State = EntityState.Modified;
+                        henkilot.Photo = buffer;
+                        henkilot.PhotoPath = filename;
 
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero", henkilot.Postinumero);
                 }
-                ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero", henkilot.Postinumero);
-
+                catch (Exception)
+                {
+                    return Content("<script language='javascript' type='text/javascript'>alert('Postinumeroa ei ole vielä tallennettu kantaan. Tallenna se ensin Postitoimipaikat-sivulla.'); window.location.replace(\"\");</script>");
+                }
                 return View(henkilot);
+
             }
         }
 
