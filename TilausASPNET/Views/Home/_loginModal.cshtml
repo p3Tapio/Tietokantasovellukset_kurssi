@@ -44,7 +44,7 @@
                     <div class="modal-footer">
                         @*<p class="text-danger" style="margin-left:2%">&nbsp;@ViewBag.LoginMessage</p>*@
                         <p class="text-danger" style="margin-left:2%">&nbsp;@Html.DisplayFor(model => model.LoginErrorMessage)</p>
-                        <button data-toggle="modal" data-target="#loginModal" title="Poistu" class="btn btn-outline-danger omaLink red-undo"><i class="fa fa-undo red-undo"></i></button>
+                        <button  data-dismiss="modal" title="Poistu" class="btn btn-outline-danger omaLink red-undo"><i class="fa fa-undo red-undo"></i></button>
                         <button type="submit" title="kirjaudu" form="loginForm" value="Kirjaudu" class="btn btn-outline-primary omaLink"><i class="fa fa-check"></i></button>
                     </div>
                 </div>
