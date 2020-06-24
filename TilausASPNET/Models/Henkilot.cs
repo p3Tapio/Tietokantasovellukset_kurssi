@@ -21,6 +21,7 @@ namespace TilausASPNET.Models
         public Nullable<int> Esimies { get; set; }
         public string Postinumero { get; set; }
         public string Sahkoposti { get; set; }
+        public byte[] Kuva { get; set; }
     
         public virtual Postitoimipaikat Postitoimipaikat { get; set; }
     }

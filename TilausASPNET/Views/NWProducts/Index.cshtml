@@ -1,0 +1,127 @@
+﻿@model PagedList.IPagedList<TilausASPNET.Models.Products>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Index";
+}
+@section scripts {
+    <script type="text/javascript">
+
+        $(function () {
+            $(".getProductName").click(function () {
+                let productName = $(this).data("productname");
+                drawLineChart(productName);
+            })
+        });
+        function drawLineChart(productName) {
+            let url = "/NWProducts/_ProductSalesPerDate/?productName=" + productName;
+            var jsonData = $.ajax({
+                url: url,
+                dataType: 'json',
+            }).done(function (results) {
+                var salesLabels = [], salesData = [];
+                for (let i = 0; i < results.length; i++) {
+                    salesData.push(results[i].DailySales);
+                    salesLabels.push(results[i].OrderDate);
+                }
+                renderChart(salesData, salesLabels, productName);
+            });
+        }
+        function renderChart(dataValues, labelTexts, productName) {
+
+            var ctx = document.getElementById('linecanvas').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labelTexts,
+                    datasets: [{
+                        label: 'Daily sales for ' + productName,
+                        data: dataValues,
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.2)'
+
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235,1)'
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                stepSize: 100
+                            }
+                        }]
+                    }
+                }
+            });
+            $('#ProductSalesPerDateModal').modal('show');
+        }
+    </script>
+}
+
+@{
+    Html.RenderPartial("_ProductSalesPerDate");
+}
+
+<h2 class="mb-4 ml-3">NW Products</h2>
+
+
+<div class="container">
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th> SupplierID</th>
+                <th> CategoryID</th>
+                <th> QuantityPerUnit</th>
+                <th> UnitPrice</th>
+                <th> UnitsInStock</th>
+                <th> UnitsOnOrder </th>
+                <th>ReorderLevel</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><button class="btn btn-outline-secondary getProductName" title="Daily product sales" data-productname="@item.ProductName"><img src="~/Icons/bar-chart-fill.svg" height="20" width="20" /></button></td>
+                    <td> @Html.DisplayFor(modelItem => item.ProductName)</td>
+                    <td> @Html.DisplayFor(modelItem => item.SupplierID)</td>
+                    <td> @Html.DisplayFor(modelItem => item.CategoryID)</td>
+                    <td> @Html.DisplayFor(modelItem => item.QuantityPerUnit)</td>
+                    <td>@Html.DisplayFor(modelItem => item.UnitPrice) </td>
+                    <td> @Html.DisplayFor(modelItem => item.UnitsInStock)</td>
+                    <td> @Html.DisplayFor(modelItem => item.UnitsOnOrder) </td>
+                    <td> @Html.DisplayFor(modelItem => item.ReorderLevel) </td>
+                    @*<td>
+                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        </td>*@
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="ml-2 text-center">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</div>
+
+<script>
+    const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+    const comparer = (idx, asc) => (a, b) => ((v1, v2) =>
+        v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
+    )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
+    document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
+        const table = th.closest('table');
+        const tbody = table.querySelector('tbody');
+        Array.from(tbody.querySelectorAll('tr'))
+            .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+            .forEach(tr => tbody.appendChild(tr));
+    })));
+</script>

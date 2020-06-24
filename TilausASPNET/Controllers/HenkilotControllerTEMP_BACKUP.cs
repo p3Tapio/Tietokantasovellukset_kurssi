@@ -17,7 +17,7 @@ namespace TilausASPNET.Controllers
     public class HenkilotController_TEMP : Controller
     {
 
-        private TilausDBEntities db = new TilausDBEntities();
+        private TilausDBEntities1 db = new TilausDBEntities1();
 
         // GET: Henkilot
         public ActionResult Index()

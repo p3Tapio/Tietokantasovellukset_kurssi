@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="TilausDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="TilausDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Asiakkaat">
           <Key>
             <PropertyRef Name="AsiakasID" />
@@ -13,6 +13,27 @@
           <Property Name="Nimi" Type="varchar" MaxLength="50" />
           <Property Name="Osoite" Type="varchar" MaxLength="50" />
           <Property Name="Postinumero" Type="char" MaxLength="5" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TilausDB.dbo.Categories' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+            <PropertyRef Name="CategoryName" />
+          </Key>
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Description" Type="ntext" />
+          <Property Name="Picture" Type="image" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TilausDB.dbo.Category Sales for 1997' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Category Sales for 1997">
+          <Key>
+            <PropertyRef Name="CategoryName" />
+          </Key>
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="CategorySales" Type="money" />
         </EntityType>
         <EntityType Name="Henkilot">
           <Key>
@@ -25,6 +46,7 @@
           <Property Name="Esimies" Type="int" />
           <Property Name="Postinumero" Type="char" MaxLength="5" />
           <Property Name="Sahkoposti" Type="nvarchar" MaxLength="100" />
+          <Property Name="Kuva" Type="image" />
         </EntityType>
         <EntityType Name="Logins">
           <Key>
@@ -34,12 +56,62 @@
           <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PassWord" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TilausDB.dbo.Order Details' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Order Details">
+          <Key>
+            <PropertyRef Name="OrderID" />
+            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="UnitPrice" />
+            <PropertyRef Name="Quantity" />
+            <PropertyRef Name="Discount" />
+          </Key>
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="UnitPrice" Type="money" Nullable="false" />
+          <Property Name="Quantity" Type="smallint" Nullable="false" />
+          <Property Name="Discount" Type="real" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="CustomerID" Type="nchar" MaxLength="5" />
+          <Property Name="EmployeeID" Type="int" />
+          <Property Name="OrderDate" Type="datetime" />
+          <Property Name="RequiredDate" Type="datetime" />
+          <Property Name="ShippedDate" Type="datetime" />
+          <Property Name="ShipVia" Type="int" />
+          <Property Name="Freight" Type="money" />
+          <Property Name="ShipName" Type="nvarchar" MaxLength="40" />
+          <Property Name="ShipAddress" Type="nvarchar" MaxLength="60" />
+          <Property Name="ShipCity" Type="nvarchar" MaxLength="15" />
+          <Property Name="ShipRegion" Type="nvarchar" MaxLength="15" />
+          <Property Name="ShipPostalCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="ShipCountry" Type="nvarchar" MaxLength="15" />
+        </EntityType>
         <EntityType Name="Postitoimipaikat">
           <Key>
             <PropertyRef Name="Postinumero" />
           </Key>
           <Property Name="Postinumero" Type="char" MaxLength="5" Nullable="false" />
           <Property Name="Postitoimipaikka" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="SupplierID" Type="int" />
+          <Property Name="CategoryID" Type="int" />
+          <Property Name="QuantityPerUnit" Type="nvarchar" MaxLength="20" />
+          <Property Name="UnitPrice" Type="money" />
+          <Property Name="UnitsInStock" Type="smallint" />
+          <Property Name="UnitsOnOrder" Type="smallint" />
+          <Property Name="ReorderLevel" Type="smallint" />
+          <Property Name="Discontinued" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Tilaukset">
           <Key>
@@ -71,6 +143,43 @@
           <Property Name="Ahinta" Type="numeric" Precision="7" Scale="2" />
           <Property Name="Kuva" Type="image" />
           <Property Name="ImageLink" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TilausDB.dbo.BestSellersByPrice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="BestSellersByPrice">
+          <Key>
+            <PropertyRef Name="ProductName" />
+          </Key>
+          <Property Name="id" Type="bigint" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="SalesPriceSum" Type="float" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TilausDB.dbo.BestSellersByQuantity' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="BestSellersByQuantity">
+          <Key>
+            <PropertyRef Name="ProductName" />
+          </Key>
+          <Property Name="id" Type="bigint" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="QuantitySum" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TilausDB.dbo.OrdersByWeekDay' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="OrdersByWeekDay">
+          <Property Name="id" Type="bigint" />
+          <Property Name="Weekday" Type="nvarchar" MaxLength="30" />
+          <Property Name="No" Type="int" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TilausDB.dbo.ProductDailySales' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ProductDailySales">
+          <Key>
+            <PropertyRef Name="ProductName" />
+          </Key>
+          <Property Name="OrderDate" Type="datetime" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="DailySales" Type="float" />
         </EntityType>
         <Association Name="FK_Asiakkaat_Postitoimipaikat">
           <End Role="Postitoimipaikat" Type="Self.Postitoimipaikat" Multiplicity="0..1" />
@@ -148,10 +257,56 @@
           <EntitySet Name="Asiakkaat" EntityType="Self.Asiakkaat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Henkilot" EntityType="Self.Henkilot" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Logins" EntityType="Self.Logins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Postitoimipaikat" EntityType="Self.Postitoimipaikat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tilaukset" EntityType="Self.Tilaukset" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tilausrivit" EntityType="Self.Tilausrivit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tuotteet" EntityType="Self.Tuotteet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categories" EntityType="Self.Categories" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Categories].[CategoryID] AS [CategoryID], 
+    [Categories].[CategoryName] AS [CategoryName], 
+    [Categories].[Description] AS [Description], 
+    [Categories].[Picture] AS [Picture]
+    FROM [dbo].[Categories] AS [Categories]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Category Sales for 1997" EntityType="Self.Category Sales for 1997" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Category Sales for 1997].[CategoryName] AS [CategoryName], 
+    [Category Sales for 1997].[CategorySales] AS [CategorySales]
+    FROM [dbo].[Category Sales for 1997] AS [Category Sales for 1997]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Order Details" EntityType="Self.Order Details" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Order Details].[OrderID] AS [OrderID], 
+    [Order Details].[ProductID] AS [ProductID], 
+    [Order Details].[UnitPrice] AS [UnitPrice], 
+    [Order Details].[Quantity] AS [Quantity], 
+    [Order Details].[Discount] AS [Discount]
+    FROM [dbo].[Order Details] AS [Order Details]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="BestSellersByPrice" EntityType="Self.BestSellersByPrice" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [BestSellersByPrice].[id] AS [id], 
+    [BestSellersByPrice].[ProductName] AS [ProductName], 
+    [BestSellersByPrice].[SalesPriceSum] AS [SalesPriceSum]
+    FROM [dbo].[BestSellersByPrice] AS [BestSellersByPrice]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="BestSellersByQuantity" EntityType="Self.BestSellersByQuantity" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [BestSellersByQuantity].[id] AS [id], 
+    [BestSellersByQuantity].[ProductName] AS [ProductName], 
+    [BestSellersByQuantity].[QuantitySum] AS [QuantitySum]
+    FROM [dbo].[BestSellersByQuantity] AS [BestSellersByQuantity]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ProductDailySales" EntityType="Self.ProductDailySales" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ProductDailySales].[OrderDate] AS [OrderDate], 
+    [ProductDailySales].[ProductName] AS [ProductName], 
+    [ProductDailySales].[DailySales] AS [DailySales]
+    FROM [dbo].[ProductDailySales] AS [ProductDailySales]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Asiakkaat_Postitoimipaikat" Association="Self.FK_Asiakkaat_Postitoimipaikat">
             <End Role="Postitoimipaikat" EntitySet="Postitoimipaikat" />
             <End Role="Asiakkaat" EntitySet="Asiakkaat" />
@@ -177,7 +332,8 @@
             <End Role="Tilausrivit" EntitySet="Tilausrivit" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TilausDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -203,7 +359,35 @@
           <Property Name="Esimies" Type="Int32" />
           <Property Name="Postinumero" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
           <Property Name="Sahkoposti" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Postitoimipaikat" Relationship="TilausDBModel.FK_Henkilot_Postitoimipaikat" FromRole="Henkilot" ToRole="Postitoimipaikat" />
+          <Property Name="Kuva" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Postitoimipaikat" Relationship="Self.FK_Henkilot_Postitoimipaikat" FromRole="Henkilot" ToRole="Postitoimipaikat" />
+        </EntityType>
+        <EntityType Name="Logins">
+          <Key>
+            <PropertyRef Name="LoginId" />
+          </Key>
+          <Property Name="LoginId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PassWord" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="CustomerID" Type="String" MaxLength="5" FixedLength="true" Unicode="true" />
+          <Property Name="EmployeeID" Type="Int32" />
+          <Property Name="OrderDate" Type="DateTime" Precision="3" />
+          <Property Name="RequiredDate" Type="DateTime" Precision="3" />
+          <Property Name="ShippedDate" Type="DateTime" Precision="3" />
+          <Property Name="ShipVia" Type="Int32" />
+          <Property Name="Freight" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ShipName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="ShipAddress" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="ShipCity" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="ShipRegion" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="ShipPostalCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ShipCountry" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Postitoimipaikat">
           <Key>
@@ -212,8 +396,23 @@
           <Property Name="Postinumero" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="Postitoimipaikka" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Asiakkaat" Relationship="Self.FK_Asiakkaat_Postitoimipaikat" FromRole="Postitoimipaikat" ToRole="Asiakkaat" />
+          <NavigationProperty Name="Henkilot" Relationship="Self.FK_Henkilot_Postitoimipaikat" FromRole="Postitoimipaikat" ToRole="Henkilot" />
           <NavigationProperty Name="Tilaukset" Relationship="Self.FK_Tilaukset_Postitoimipaikat" FromRole="Postitoimipaikat" ToRole="Tilaukset" />
-          <NavigationProperty Name="Henkilot" Relationship="TilausDBModel.FK_Henkilot_Postitoimipaikat" FromRole="Postitoimipaikat" ToRole="Henkilot" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SupplierID" Type="Int32" />
+          <Property Name="CategoryID" Type="Int32" />
+          <Property Name="QuantityPerUnit" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UnitPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="UnitsInStock" Type="Int16" />
+          <Property Name="UnitsOnOrder" Type="Int16" />
+          <Property Name="ReorderLevel" Type="Int16" />
+          <Property Name="Discontinued" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Tilaukset">
           <Key>
@@ -248,9 +447,64 @@
           <Property Name="TuoteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nimi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Ahinta" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="Kuva" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="ImageLink" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Tilausrivit" Relationship="Self.FK_Tilausrivit_Tuotteet" FromRole="Tuotteet" ToRole="Tilausrivit" />
-          <Property Name="Kuva" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+            <PropertyRef Name="CategoryName" />
+          </Key>
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="CategoryName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Category_Sales_for_1997">
+          <Key>
+            <PropertyRef Name="CategoryName" />
+          </Key>
+          <Property Name="CategoryName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CategorySales" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="Order_Details">
+          <Key>
+            <PropertyRef Name="OrderID" />
+            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="UnitPrice" />
+            <PropertyRef Name="Quantity" />
+            <PropertyRef Name="Discount" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="UnitPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Quantity" Type="Int16" Nullable="false" />
+          <Property Name="Discount" Type="Single" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BestSellersByPrice">
+          <Key>
+            <PropertyRef Name="ProductName" />
+          </Key>
+          <Property Name="id" Type="Int64" />
+          <Property Name="ProductName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SalesPriceSum" Type="Double" />
+        </EntityType>
+        <EntityType Name="BestSellersByQuantity">
+          <Key>
+            <PropertyRef Name="ProductName" />
+          </Key>
+          <Property Name="id" Type="Int64" />
+          <Property Name="ProductName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="QuantitySum" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ProductDailySales">
+          <Key>
+            <PropertyRef Name="ProductName" />
+          </Key>
+          <Property Name="OrderDate" Type="DateTime" Precision="3" />
+          <Property Name="ProductName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DailySales" Type="Double" />
         </EntityType>
         <Association Name="FK_Asiakkaat_Postitoimipaikat">
           <End Role="Postitoimipaikat" Type="Self.Postitoimipaikat" Multiplicity="0..1" />
@@ -273,6 +527,18 @@
             </Principal>
             <Dependent Role="Tilaukset">
               <PropertyRef Name="AsiakasID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Henkilot_Postitoimipaikat">
+          <End Role="Postitoimipaikat" Type="Self.Postitoimipaikat" Multiplicity="0..1" />
+          <End Role="Henkilot" Type="Self.Henkilot" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Postitoimipaikat">
+              <PropertyRef Name="Postinumero" />
+            </Principal>
+            <Dependent Role="Henkilot">
+              <PropertyRef Name="Postinumero" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -312,13 +578,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="TilausDBEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="TilausDBEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Asiakkaat" EntityType="Self.Asiakkaat" />
           <EntitySet Name="Henkilot" EntityType="Self.Henkilot" />
+          <EntitySet Name="Logins" EntityType="Self.Logins" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" />
           <EntitySet Name="Postitoimipaikat" EntityType="Self.Postitoimipaikat" />
+          <EntitySet Name="Products" EntityType="Self.Products" />
           <EntitySet Name="Tilaukset" EntityType="Self.Tilaukset" />
           <EntitySet Name="Tilausrivit" EntityType="Self.Tilausrivit" />
           <EntitySet Name="Tuotteet" EntityType="Self.Tuotteet" />
+          <EntitySet Name="Categories" EntityType="Self.Categories" />
+          <EntitySet Name="Category_Sales_for_1997" EntityType="Self.Category_Sales_for_1997" />
+          <EntitySet Name="Order_Details" EntityType="Self.Order_Details" />
+          <EntitySet Name="BestSellersByPrice" EntityType="Self.BestSellersByPrice" />
+          <EntitySet Name="BestSellersByQuantity" EntityType="Self.BestSellersByQuantity" />
+          <EntitySet Name="ProductDailySales" EntityType="Self.ProductDailySales" />
           <AssociationSet Name="FK_Asiakkaat_Postitoimipaikat" Association="Self.FK_Asiakkaat_Postitoimipaikat">
             <End Role="Postitoimipaikat" EntitySet="Postitoimipaikat" />
             <End Role="Asiakkaat" EntitySet="Asiakkaat" />
@@ -326,6 +601,10 @@
           <AssociationSet Name="FK_Tilaukset_Asiakkaat" Association="Self.FK_Tilaukset_Asiakkaat">
             <End Role="Asiakkaat" EntitySet="Asiakkaat" />
             <End Role="Tilaukset" EntitySet="Tilaukset" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Henkilot_Postitoimipaikat" Association="Self.FK_Henkilot_Postitoimipaikat">
+            <End Role="Postitoimipaikat" EntitySet="Postitoimipaikat" />
+            <End Role="Henkilot" EntitySet="Henkilot" />
           </AssociationSet>
           <AssociationSet Name="FK_Tilaukset_Postitoimipaikat" Association="Self.FK_Tilaukset_Postitoimipaikat">
             <End Role="Postitoimipaikat" EntitySet="Postitoimipaikat" />
@@ -339,38 +618,13 @@
             <End Role="Tuotteet" EntitySet="Tuotteet" />
             <End Role="Tilausrivit" EntitySet="Tilausrivit" />
           </AssociationSet>
-          <AssociationSet Name="FK_Henkilot_Postitoimipaikat" Association="TilausDBModel.FK_Henkilot_Postitoimipaikat">
-            <End Role="Postitoimipaikat" EntitySet="Postitoimipaikat" />
-            <End Role="Henkilot" EntitySet="Henkilot" />
-          </AssociationSet>
-          <EntitySet Name="Logins" EntityType="TilausDBModel.Logins" />
         </EntityContainer>
-        <Association Name="FK_Henkilot_Postitoimipaikat">
-          <End Type="TilausDBModel.Postitoimipaikat" Role="Postitoimipaikat" Multiplicity="0..1" />
-          <End Type="TilausDBModel.Henkilot" Role="Henkilot" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Postitoimipaikat">
-              <PropertyRef Name="Postinumero" />
-            </Principal>
-            <Dependent Role="Henkilot">
-              <PropertyRef Name="Postinumero" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Logins">
-          <Key>
-            <PropertyRef Name="LoginId" />
-          </Key>
-          <Property Name="LoginId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PassWord" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="TilausDBModelStoreContainer" CdmEntityContainer="TilausDBEntities">
+        <EntityContainerMapping StorageEntityContainer="TilausDBModelStoreContainer" CdmEntityContainer="TilausDBEntities1">
           <EntitySetMapping Name="Asiakkaat">
             <EntityTypeMapping TypeName="TilausDBModel.Asiakkaat">
               <MappingFragment StoreEntitySet="Asiakkaat">
@@ -391,6 +645,36 @@
                 <ScalarProperty Name="Esimies" ColumnName="Esimies" />
                 <ScalarProperty Name="Postinumero" ColumnName="Postinumero" />
                 <ScalarProperty Name="Sahkoposti" ColumnName="Sahkoposti" />
+                <ScalarProperty Name="Kuva" ColumnName="Kuva" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logins">
+            <EntityTypeMapping TypeName="TilausDBModel.Logins">
+              <MappingFragment StoreEntitySet="Logins">
+                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="TilausDBModel.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="RequiredDate" ColumnName="RequiredDate" />
+                <ScalarProperty Name="ShippedDate" ColumnName="ShippedDate" />
+                <ScalarProperty Name="ShipVia" ColumnName="ShipVia" />
+                <ScalarProperty Name="Freight" ColumnName="Freight" />
+                <ScalarProperty Name="ShipName" ColumnName="ShipName" />
+                <ScalarProperty Name="ShipAddress" ColumnName="ShipAddress" />
+                <ScalarProperty Name="ShipCity" ColumnName="ShipCity" />
+                <ScalarProperty Name="ShipRegion" ColumnName="ShipRegion" />
+                <ScalarProperty Name="ShipPostalCode" ColumnName="ShipPostalCode" />
+                <ScalarProperty Name="ShipCountry" ColumnName="ShipCountry" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -399,6 +683,22 @@
               <MappingFragment StoreEntitySet="Postitoimipaikat">
                 <ScalarProperty Name="Postinumero" ColumnName="Postinumero" />
                 <ScalarProperty Name="Postitoimipaikka" ColumnName="Postitoimipaikka" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="TilausDBModel.Products">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="QuantityPerUnit" ColumnName="QuantityPerUnit" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="UnitsInStock" ColumnName="UnitsInStock" />
+                <ScalarProperty Name="UnitsOnOrder" ColumnName="UnitsOnOrder" />
+                <ScalarProperty Name="ReorderLevel" ColumnName="ReorderLevel" />
+                <ScalarProperty Name="Discontinued" ColumnName="Discontinued" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -428,20 +728,67 @@
           <EntitySetMapping Name="Tuotteet">
             <EntityTypeMapping TypeName="TilausDBModel.Tuotteet">
               <MappingFragment StoreEntitySet="Tuotteet">
-                <ScalarProperty Name="Kuva" ColumnName="Kuva" />
                 <ScalarProperty Name="TuoteID" ColumnName="TuoteID" />
                 <ScalarProperty Name="Nimi" ColumnName="Nimi" />
                 <ScalarProperty Name="Ahinta" ColumnName="Ahinta" />
+                <ScalarProperty Name="Kuva" ColumnName="Kuva" />
                 <ScalarProperty Name="ImageLink" ColumnName="ImageLink" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Logins">
-            <EntityTypeMapping TypeName="TilausDBModel.Logins">
-              <MappingFragment StoreEntitySet="Logins">
-                <ScalarProperty Name="PassWord" ColumnName="PassWord" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="TilausDBModel.Categories">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Category_Sales_for_1997">
+            <EntityTypeMapping TypeName="TilausDBModel.Category_Sales_for_1997">
+              <MappingFragment StoreEntitySet="Category Sales for 1997">
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CategorySales" ColumnName="CategorySales" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order_Details">
+            <EntityTypeMapping TypeName="TilausDBModel.Order_Details">
+              <MappingFragment StoreEntitySet="Order Details">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BestSellersByPrice">
+            <EntityTypeMapping TypeName="TilausDBModel.BestSellersByPrice">
+              <MappingFragment StoreEntitySet="BestSellersByPrice">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="SalesPriceSum" ColumnName="SalesPriceSum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BestSellersByQuantity">
+            <EntityTypeMapping TypeName="TilausDBModel.BestSellersByQuantity">
+              <MappingFragment StoreEntitySet="BestSellersByQuantity">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="QuantitySum" ColumnName="QuantitySum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductDailySales">
+            <EntityTypeMapping TypeName="TilausDBModel.ProductDailySales">
+              <MappingFragment StoreEntitySet="ProductDailySales">
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="DailySales" ColumnName="DailySales" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

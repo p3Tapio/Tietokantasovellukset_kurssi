@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
-  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -62,10 +62,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.7\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
@@ -89,7 +89,7 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -165,7 +165,9 @@
     <Compile Include="Controllers\HenkilotController.cs" />
     <Compile Include="Controllers\HenkilotControllerTEMP_BACKUP.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NWProductsController.cs" />
     <Compile Include="Controllers\PostitoimipaikatController.cs" />
+    <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\TilauksetController.cs" />
     <Compile Include="Controllers\TilausrivitController.cs" />
     <Compile Include="Controllers\TuotteetController.cs" />
@@ -180,13 +182,37 @@
     <Compile Include="Models\Asiakkaat.cs">
       <DependentUpon>TilausDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\BestSellersByPrice.cs">
+      <DependentUpon>TilausDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BestSellersByQuantity.cs">
+      <DependentUpon>TilausDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Categories.cs">
+      <DependentUpon>TilausDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Category_Sales_for_1997.cs">
+      <DependentUpon>TilausDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Henkilot.cs">
       <DependentUpon>TilausDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Logins.cs">
       <DependentUpon>TilausDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Orders.cs">
+      <DependentUpon>TilausDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Order_Details.cs">
+      <DependentUpon>TilausDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Postitoimipaikat.cs">
+      <DependentUpon>TilausDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductDailySales.cs">
+      <DependentUpon>TilausDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Products.cs">
       <DependentUpon>TilausDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tilaukset.cs">
@@ -214,8 +240,13 @@
       <DependentUpon>TilausDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\BestSellersByP.cs" />
+    <Compile Include="ViewModels\BestSellersByQ.cs" />
+    <Compile Include="ViewModels\CategorySalesClass.cs" />
+    <Compile Include="ViewModels\DailyProductSales.cs" />
     <Compile Include="ViewModels\OrderRows.cs" />
     <Compile Include="ViewModels\OrderSummaryData.cs" />
+    <Compile Include="ViewModels\SalesByWeekDay.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -226,6 +257,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrapSolar.css" />
     <Content Include="Content\bootstrapSolar.min.css" />
+    <Content Include="Content\Chart.css" />
+    <Content Include="Content\Chart.min.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -766,16 +799,12 @@
     <Content Include="Icons\x-square-fill.svg" />
     <Content Include="Icons\x-square.svg" />
     <Content Include="Icons\x.svg" />
-    <Content Include="Models\TilausDBModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>TilausDBModel.Context.cs</LastGenOutput>
-      <DependentUpon>TilausDBModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\TilausDBModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TilausDBModel.edmx</DependentUpon>
-      <LastGenOutput>TilausDBModel.cs</LastGenOutput>
-    </Content>
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
     <EntityDeploy Include="Models\TilausDBModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>TilausDBModel.Designer.cs</LastGenOutput>
@@ -783,21 +812,23 @@
     <Content Include="Models\TilausDBModel.edmx.diagram">
       <DependentUpon>TilausDBModel.edmx</DependentUpon>
     </Content>
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.css.map" />
-    <Content Include="Content\bootstrap-grid.min.css.map" />
-    <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="Properties\PublishProfiles\TilausASPNET - Web Deploy.pubxml" />
+    <Content Include="Models\TilausDBModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TilausDBModel.edmx</DependentUpon>
+      <LastGenOutput>TilausDBModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\TilausDBModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TilausDBModel.edmx</DependentUpon>
+      <LastGenOutput>TilausDBModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\bootstrap.min.js.map" />
-    <Content Include="Scripts\bootstrap.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Scripts\Chart.js" />
+    <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -807,6 +838,10 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -930,7 +965,6 @@
     <Content Include="Views\Henkilot\Delete.cshtml" />
     <Content Include="Views\Henkilot\Details.cshtml" />
     <Content Include="Views\Henkilot\Edit.cshtml" />
-    <Content Include="Views\Henkilot\Index_TEMP_BACKUP.cshtml" />
     <Content Include="Views\Tilausrivit\Create.cshtml" />
     <Content Include="Views\Tilausrivit\Delete.cshtml" />
     <Content Include="Views\Tilausrivit\Details.cshtml" />
@@ -955,6 +989,12 @@
     <Content Include="Views\Tilaukset\TilausOtsikot.cshtml" />
     <Content Include="Views\Tilaukset\_Tilausrivit.cshtml" />
     <Content Include="Views\Tilaukset\_ModalEdit.cshtml" />
+    <Content Include="Views\Statistics\CategorySales.cshtml" />
+    <Content Include="Views\NWProducts\Index.cshtml" />
+    <Content Include="Views\NWProducts\_ProductSalesPerDate.cshtml" />
+    <Content Include="Views\Statistics\BestSellersByQuantity.cshtml" />
+    <Content Include="Views\Statistics\BestSellersByPrice.cshtml" />
+    <Content Include="Views\Statistics\SalesPerWeekDay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1002,11 +1042,11 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
-    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
   </Target>
-  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -7,7 +7,7 @@ using TilausASPNET.Models;
 
 namespace TilausASPNET.Controllers {
     public class HomeController : Controller {
-        TilausDBEntities db = new TilausDBEntities();
+        TilausDBEntities1 db = new TilausDBEntities1();
         public ActionResult Index() {
 
             ViewBag.LoginError = 0;

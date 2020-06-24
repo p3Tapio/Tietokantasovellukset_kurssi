@@ -10,7 +10,7 @@ using TilausASPNET.Models;
 
 namespace TilausASPNET.Controllers {
     public class TuotteetController : Controller {
-        private TilausDBEntities db = new TilausDBEntities();
+        private TilausDBEntities1 db = new TilausDBEntities1();
 
         // GET: Tuotteet
         public ActionResult Index() {

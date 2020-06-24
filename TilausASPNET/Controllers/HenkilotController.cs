@@ -16,7 +16,7 @@ namespace TilausASPNET.Controllers
     public class HenkilotController : Controller
     {
 
-        private TilausDBEntities db = new TilausDBEntities();
+        private TilausDBEntities1 db = new TilausDBEntities1();
 
         // GET: Henkilot
         public ActionResult Index(string sortOrder, string searchString1, string currentFilter1, string PostinumeroHaku, string currentPostinumero, int? page, int? pagesize)

@@ -14,7 +14,7 @@ namespace TilausASPNET.Controllers
     public class PostitoimipaikatController : Controller
     {
 #pragma warning disable IDE0044 // Add readonly modifier
-        private TilausDBEntities db = new TilausDBEntities();
+        private TilausDBEntities1 db = new TilausDBEntities1();
 #pragma warning restore IDE0044 // Add readonly modifier
 
         // GET: Postitoimipaikat

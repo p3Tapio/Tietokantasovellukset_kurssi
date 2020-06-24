@@ -16,7 +16,7 @@ namespace TilausASPNET.Controllers
 {
     public class AsiakkaatController : Controller
     {
-        private TilausDBEntities db = new TilausDBEntities();
+        private TilausDBEntities1 db = new TilausDBEntities1();
 
         // GET: Asiakkaat
         public ActionResult Index(string findName, string currentFilter, string sortOrder, int? page, int? pagesize)

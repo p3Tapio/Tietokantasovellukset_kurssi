@@ -10,7 +10,7 @@ namespace TilausASPNET.Filtterit
     {
         public static List<Asiakkaat> AsiakkaatDropDownList(IQueryable<Asiakkaat> lista)
         {
-            TilausDBEntities db = new TilausDBEntities();
+            TilausDBEntities1 db = new TilausDBEntities1();
             List<Asiakkaat> palautettava = new List<Asiakkaat>();
             Asiakkaat blankko = new Asiakkaat { AsiakasID = 0, Nimi = "Valitse asiakas", Osoite = "", Postinumero = "" };
             palautettava.Add(blankko);

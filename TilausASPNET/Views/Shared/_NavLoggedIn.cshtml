@@ -37,13 +37,22 @@
             <li class="nav-item">
                 <a class="nav-link" href="/Postitoimipaikat">Postitoimipaikat</a>
             </li>
-
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Northwind </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/NWProducts/Index">NW Products</a>
+                    <a class="dropdown-item" href="/Statistics/CategorySales">Sales by category</a>
+                    <a class="dropdown-item" href="/Statistics/BestSellersByQuantity">Best sellers by quantity</a>
+                    <a class="dropdown-item" href="/Statistics/BestSellersByPrice">Best sellers by value</a>
+                    <a class="dropdown-item" href="/Statistics/SalesPerWeekDay">Orders per weekday</a>
+                </div>
+            </li>
             <li class="nav-item" style="color:aliceblue">
                 <p style="color:aliceblue; margin-top: 9px;">@Html.ActionLink("Kirjaudu ulos", "Logout", "Home") &nbsp;&nbsp;</p>
             </li>
             @*<li class="nav-item">
-                <p style="color:aliceblue; margin-top: 9px;">|&nbsp; @ViewBag.LoggedStatus</p>
-            </li>*@
+            <p style="color:aliceblue; margin-top: 9px;">|&nbsp; @ViewBag.LoggedStatus</p>
+        </li>*@
         </ul>
     </div>
 </nav>

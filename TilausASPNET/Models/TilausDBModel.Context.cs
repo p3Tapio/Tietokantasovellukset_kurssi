@@ -13,10 +13,10 @@ namespace TilausASPNET.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class TilausDBEntities : DbContext
+    public partial class TilausDBEntities1 : DbContext
     {
-        public TilausDBEntities()
-            : base("name=TilausDBEntities")
+        public TilausDBEntities1()
+            : base("name=TilausDBEntities1")
         {
         }
     
@@ -27,10 +27,18 @@ namespace TilausASPNET.Models
     
         public virtual DbSet<Asiakkaat> Asiakkaat { get; set; }
         public virtual DbSet<Henkilot> Henkilot { get; set; }
+        public virtual DbSet<Logins> Logins { get; set; }
+        public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<Postitoimipaikat> Postitoimipaikat { get; set; }
+        public virtual DbSet<Products> Products { get; set; }
         public virtual DbSet<Tilaukset> Tilaukset { get; set; }
         public virtual DbSet<Tilausrivit> Tilausrivit { get; set; }
         public virtual DbSet<Tuotteet> Tuotteet { get; set; }
-        public virtual DbSet<Logins> Logins { get; set; }
+        public virtual DbSet<Categories> Categories { get; set; }
+        public virtual DbSet<Category_Sales_for_1997> Category_Sales_for_1997 { get; set; }
+        public virtual DbSet<Order_Details> Order_Details { get; set; }
+        public virtual DbSet<BestSellersByPrice> BestSellersByPrice { get; set; }
+        public virtual DbSet<BestSellersByQuantity> BestSellersByQuantity { get; set; }
+        public virtual DbSet<ProductDailySales> ProductDailySales { get; set; }
     }
 }
